@@ -1,0 +1,56 @@
+# --- Directorios de Trabajo de Unity (Temporales y generados) ---
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
+[Uu]ser[Ss]ettings/
+[Mm]emoryCaptures/
+
+# --- Archivos de Solución de IDEs (VS, Rider, VS Code) ---
+.vs/
+.idea/
+.gradle/
+.vscode/
+*.csproj
+*.unityproj
+*.sln
+*.suo
+*.tmp
+*.user
+*.userprefs
+*.pidb
+*.booproj
+*.svd
+*.pdb
+*.mdb
+*.opendb
+*.VC.db
+
+# --- Archivos de Sistema y Crash Reports ---
+sysinfo.txt
+*.pidb.meta
+*.pdb.meta
+*.mdb.meta
+crashlytics-build.properties
+
+# --- Builds y Paquetes (Solo ignorar en la raíz) ---
+*.apk
+*.aab
+*.unitypackage
+*.exe
+*.zip
+*.app
+
+# --- Addressables y Streaming Assets ---
+[Aa]ssets/[Aa]ddressable[Aa]ssets[Dd]ata/*/*.bin*
+[Aa]ssets/[Ss]treamingAssets/aa.meta
+[Aa]ssets/[Ss]treamingAssets/aa/*
+
+# --- Plugins Específicos ---
+[Aa]ssets/Plugins/Editor/JetBrains*
+
+# --- Tu carpeta específica de Backend ---
+API_BBDD/node_modules/
+API_BBDD/.env
