@@ -1,0 +1,63 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: PlayerInfo_en
+  m_EditorClassIdentifier: Unity.Localization::UnityEngine.Localization.Tables.StringTable
+  m_LocaleId:
+    m_Code: en
+  m_SharedData: {fileID: 11400000, guid: 079d0aae46b7a834ba643ab9ee8d81df, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 8077570048
+    m_Localized: Mage
+    m_Metadata:
+      m_Items: []
+  - m_Id: 72317530112
+    m_Localized: 'MageDescription '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 297903976448
+    m_Localized: Archer
+    m_Metadata:
+      m_Items: []
+  - m_Id: 421820493824
+    m_Localized: ArcherDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 625776914432
+    m_Localized: Rogue
+    m_Metadata:
+      m_Items: []
+  - m_Id: 719620272128
+    m_Localized: RogueDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 802797514752
+    m_Localized: Viking
+    m_Metadata:
+      m_Items: []
+  - m_Id: 877351268352
+    m_Localized: VikingDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 966195015680
+    m_Localized: War
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1047979749376
+    m_Localized: WarDescription
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []
