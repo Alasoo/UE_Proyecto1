@@ -12,10 +12,8 @@ namespace Controller.Player
 
         [field: Header("COMPONENTS")]
         [field: SerializeField] public InputReader inputReader { get; private set; }
-        //[field: SerializeField] public Animator animator { get; private set; }
-        [field: SerializeField] public Rigidbody rb { get; private set; }
+        [field: SerializeField] public Rigidbody2D rb { get; private set; }
         [field: SerializeField] public Camera mainCamera { get; private set; }
-        [field: SerializeField] public Transform groundCheck { get; private set; }
 
 
         [field: Header("SPEEDS")]
@@ -23,22 +21,9 @@ namespace Controller.Player
 
         [Tooltip("Sprint speed of the character in m/s")]
         public float sprintSpeed = 5.335f;
-        public bool grounded = true;
-
-        [field: SerializeField] public float groundedOffset { get; private set; } = -0.14f;
-        [field: SerializeField] public float groundedRadius { get; private set; } = 0.28f;
-        [field: SerializeField] public LayerMask groundLayers { get; private set; }
 
 
-        public float jumpForce = 5f;
-        public bool jumpRequested { get; set; }
-        public bool isLeavingGround { get; set; }
-        public float fallMultiplier = 2.5f;
-
-        void Awake()
-        {
-
-        }
+        [field: SerializeField] public float turnSmoothTime = .1f;
 
         private void Start()
         {
@@ -63,20 +48,6 @@ namespace Controller.Player
             SwitchState(new PlayerDeadState(this));
         }
 
-
-#if UNITY_EDITOR
-        // Dibujar el gizmo del GroundCheck en la escena
-        private void OnDrawGizmos()
-        {
-
-            if (groundCheck != null)
-            {
-                Gizmos.color = Color.red;
-                Gizmos.DrawWireSphere(groundCheck.position, groundedRadius * 2);
-            }
-
-        }
-#endif
     }
 }
 

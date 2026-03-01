@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using MyUI.Panels;
 using MyUI.PlayerSelection;
-using TMPro;
 using UnityEngine;
 using UnityEngine.Localization.Components;
 using UnityEngine.UI;
@@ -26,6 +25,9 @@ namespace MyUI.OptionButtons
         [Header("PREFAB")]
         [SerializeField] private PlayerButton playerButton;
 
+        [Header("SCENE INDEX")]
+        [SerializeField] private int sceneIndex = 1;
+
         private PlayerButton currentPlayerSelected = null;
         private List<PlayerButton> playerButtons = new();
 
@@ -43,7 +45,9 @@ namespace MyUI.OptionButtons
         private void OnClickPlay()
         {
             Debug.Log($"Cambio de escena, a jugar");
+            SceneLoader.Instance.LoadScene(sceneIndex);
         }
+
         protected override void OnClickBack()
         {
             //sonido?

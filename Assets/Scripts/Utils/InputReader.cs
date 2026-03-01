@@ -11,10 +11,8 @@ namespace Controller.Player
         public Vector2 movementValue { get; private set; }
         public bool aiming { get; private set; }
         public bool sprint { get; private set; } = false;
-        public bool jump { get; set; }
         public bool isAttacking { get; set; }
 
-        public event Action OnJumpEvent;
         public event Action InteractEvent;
         public event Action TargetEvent;
         public event Action CancelEvent;
@@ -44,16 +42,8 @@ namespace Controller.Player
 
 
 
-        public void OnJump(InputAction.CallbackContext context)
-        {
-            if (context.performed) return;
-            if (context.canceled) return;
-            OnJumpEvent?.Invoke();
-        }
-
         public void OnMove(InputAction.CallbackContext context)
         {
-            Debug.Log($"OnMove");
             movementValue = context.ReadValue<Vector2>();
         }
 
@@ -71,7 +61,7 @@ namespace Controller.Player
 
         public void OnLook(InputAction.CallbackContext context)
         {
-            //
+            
         }
 
         public void OnAttack(InputAction.CallbackContext context)
@@ -98,7 +88,7 @@ namespace Controller.Player
 
         public void OnZoom(InputAction.CallbackContext context)
         {
-            //throw new NotImplementedException();
+            
         }
 
         public void OnTarget(InputAction.CallbackContext context)
@@ -109,12 +99,10 @@ namespace Controller.Player
 
         public void OnPrevious(InputAction.CallbackContext context)
         {
-            throw new NotImplementedException();
         }
 
         public void OnNext(InputAction.CallbackContext context)
         {
-            throw new NotImplementedException();
         }
     }
 }

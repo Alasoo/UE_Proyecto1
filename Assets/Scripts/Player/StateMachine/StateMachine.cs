@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Controller
 {
-    public class StateMachine : MonoBehaviour
+    public class StateMachine : Singleton<StateMachine>
     {
         private State currentState;
 

@@ -12,37 +12,34 @@ namespace Controller.Player
 
         private const float crossFadeDuration = .1f;
 
-        private Vector3 direction;
+        private Vector2 direction;
 
         public override void Enter()
         {
-            stateMachine.inputReader.OnJumpEvent += OnJump;
         }
 
 
         public override void Tick(float deltaTime)
         {
-            GroundedCheck();
+            if (stateMachine.inputReader.movementValue.magnitude <= .1f)
+            {
+                direction = Vector2.zero;
+                return;
+            }
             direction = Direction();
+            Rotate(direction);
         }
 
         public override void FixedTick(float fixedDeltaTime)
         {
             Move(fixedDeltaTime, direction);
-            JumpEffect();
-            FallingEffect();
         }
 
 
         public override void Exit()
         {
-            stateMachine.inputReader.OnJumpEvent -= OnJump;
         }
 
-        private void OnJump()
-        {
-            Jump();
-        }
 
     }
 }
