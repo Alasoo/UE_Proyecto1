@@ -49,9 +49,6 @@ namespace MyExtensions
 
 
 
-
-
-
         public static async UniTask LerpScale(this Transform transform, Vector3 targetScale, float duration, CancellationToken token)
         {
             var time = 0f;

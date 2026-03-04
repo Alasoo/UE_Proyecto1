@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60095734fd699ce46a2402d22c754693, type: 3}
   m_Name: War
   m_EditorClassIdentifier: Assembly-CSharp::PlayerDataScriptable
+  id: war
   playerName:
     m_TableReference:
       m_TableCollectionName: GUID:079d0aae46b7a834ba643ab9ee8d81df
@@ -41,6 +42,7 @@ MonoBehaviour:
     physicalDamage: 100
     magicalDamage: 100
     speedMov: 100
+  maxExperience: 10000
   references:
     version: 2
     RefIds: []
