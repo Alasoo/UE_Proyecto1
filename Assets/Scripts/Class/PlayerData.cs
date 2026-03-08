@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace SaveSystem.Player
@@ -8,6 +9,8 @@ namespace SaveSystem.Player
     {
         public int experience = 0;
         public int lvl = 1;
+
+        public List<int> itemsEquiped = new();
 
 
         public void AddExperience(int exp)

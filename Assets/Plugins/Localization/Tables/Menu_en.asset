@@ -16,7 +16,8 @@ MonoBehaviour:
     m_Code: en
   m_SharedData: {fileID: 11400000, guid: f13e5b40258cd574d92eb15d16a0a262, type: 2}
   m_Metadata:
-    m_Items: []
+    m_Items:
+    - rid: 2357570828007374926
   m_TableData:
   - m_Id: 177019940864
     m_Localized: Play
@@ -82,6 +83,58 @@ MonoBehaviour:
     m_Localized: Catalan
     m_Metadata:
       m_Items: []
+  - m_Id: 3233889396322304
+    m_Localized: Shop
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3240783120822272
+    m_Localized: Buy
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3289532375363584
+    m_Localized: Equip
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3289644564606976
+    m_Localized: Are you sure you want to buy item <color="red">{0}</color> for the
+      price of <color="red">{1}</color> coins?
+    m_Metadata:
+      m_Items:
+      - rid: 2357570828007374926
+  - m_Id: 3291476846309376
+    m_Localized: Yes
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3307802818113536
+    m_Localized: Unequip
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3310750818234368
+    m_Localized: Power crystal
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3311249500008448
+    m_Localized: Shield
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3311380525871104
+    m_Localized: Arrows
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3311433743200256
+    m_Localized: Axes
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3311533668298752
+    m_Localized: Daggers
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 2357570828007374926
+      type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_Entries: 
+        m_SharedEntries:
+        - id: 3289644564606976

@@ -16,7 +16,8 @@ MonoBehaviour:
     m_Code: es
   m_SharedData: {fileID: 11400000, guid: f13e5b40258cd574d92eb15d16a0a262, type: 2}
   m_Metadata:
-    m_Items: []
+    m_Items:
+    - rid: 2357570828007374928
   m_TableData:
   - m_Id: 177019940864
     m_Localized: Jugar
@@ -82,6 +83,58 @@ MonoBehaviour:
     m_Localized: Catalan
     m_Metadata:
       m_Items: []
+  - m_Id: 3233889396322304
+    m_Localized: Tienda
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3240783120822272
+    m_Localized: Comprar
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3289532375363584
+    m_Localized: Equipar
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3289644564606976
+    m_Localized: "\xBFEst\xE1s seguro que quieres comprar el objeto <color=\"red\">{0}</color>
+      por el precio de <color=\"red\">{1}</color> monedas?\r\n"
+    m_Metadata:
+      m_Items:
+      - rid: 2357570828007374928
+  - m_Id: 3291476846309376
+    m_Localized: Si
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3307802818113536
+    m_Localized: Desequipar
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3310750818234368
+    m_Localized: Cristal de poder
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3311249500008448
+    m_Localized: Escudo
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3311380525871104
+    m_Localized: Flechas
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3311433743200256
+    m_Localized: Hachas
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3311533668298752
+    m_Localized: Dagas
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 2357570828007374928
+      type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_Entries: 
+        m_SharedEntries:
+        - id: 3289644564606976

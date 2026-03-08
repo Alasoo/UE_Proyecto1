@@ -1,9 +1,11 @@
 using System;
+using System.Collections.Generic;
 using Controller.Player;
 using SaveSystem;
 using SaveSystem.Player;
 using UnityEngine;
 using UnityEngine.Localization;
+
 
 [CreateAssetMenu(fileName = "NuevoPersonaje", menuName = "ScriptableObjects/Player", order = 1)]
 public class PlayerDataScriptable : ScriptableObject
@@ -16,6 +18,8 @@ public class PlayerDataScriptable : ScriptableObject
 
     [Space(15)]
     public PlayerStateMachine playerStateMachine;
+    //[Space(10)]
+    //public List<ItemDataScriptable> items = new();
 
     [Space]
     [PreviewSprite(64)]

@@ -1,16 +1,17 @@
 using UnityEngine;
 
-public class Enums : MonoBehaviour
+public enum Character
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    None,
+    Warrior,
+    Viking,
+    Rogue,
+    Archer,
+    Mage,
+}
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+public enum Slot
+{
+    None,
+    Weapon
 }

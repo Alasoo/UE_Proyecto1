@@ -79,6 +79,50 @@ MonoBehaviour:
     m_Key: Catalan
     m_Metadata:
       m_Items: []
+  - m_Id: 3233889396322304
+    m_Key: Shop
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3240783120822272
+    m_Key: Buy
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3289532375363584
+    m_Key: Equip
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3289644564606976
+    m_Key: PurchaseMessage
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3291476846309376
+    m_Key: Yes
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3307802818113536
+    m_Key: Unequip
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3310750818234368
+    m_Key: PowerCrystal
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3311249500008448
+    m_Key: Shield
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3311380525871104
+    m_Key: Arrows
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3311433743200256
+    m_Key: Axes
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3311533668298752
+    m_Key: daggers
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

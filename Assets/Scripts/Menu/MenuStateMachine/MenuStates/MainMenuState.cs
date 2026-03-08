@@ -11,10 +11,12 @@ namespace MyUI.OptionButtons
     {
         [Header("MENU STATE")]
         [SerializeField] private MenuState playerMenu;
+        [SerializeField] private MenuState shopMenu;
         [SerializeField] private MenuState settingsMenu;
 
         [Header("BUTTONS")]
         [SerializeField] private Button playButton;
+        [SerializeField] private Button shopButton;
         [SerializeField] private Button settingsButton;
         [SerializeField] private Button quitButton;
 
@@ -22,6 +24,7 @@ namespace MyUI.OptionButtons
         public override void Init()
         {
             playButton.onClick.AddListener(OnClickPlayPanel);
+            shopButton.onClick.AddListener(OnClickShopPanel);
             settingsButton.onClick.AddListener(OnClickSettingsPanel);
             quitButton.onClick.AddListener(OnClickQuit);
         }
@@ -32,6 +35,11 @@ namespace MyUI.OptionButtons
             MenuStateMachine.Instance.ChangeMenu(playerMenu);
         }
 
+        private void OnClickShopPanel()
+        {
+            Audios.Instance.PlayClickButton();
+            MenuStateMachine.Instance.ChangeMenu(shopMenu);
+        }
         private void OnClickSettingsPanel()
         {
             Audios.Instance.PlayClickButton();
