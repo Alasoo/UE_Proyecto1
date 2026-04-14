@@ -53,7 +53,7 @@ namespace MyUI.OptionButtons
         {
             GameInfo.playerSelected = currentPlayerSelected.playerScriptable;
             Debug.Log($"Cambio de escena, a jugar");
-            SceneLoader.Instance.LoadScene(sceneIndex);
+            _ = SceneLoader.Instance.LoadGame();
         }
 
         protected override void OnClickBack()

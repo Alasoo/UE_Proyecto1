@@ -159,6 +159,12 @@ namespace MyExtensions
                 throw new TaskCanceledException();
         }
 
+        public static void ClearCts(this CancellationTokenSource cts)
+        {
+            cts?.Cancel();
+            cts?.Dispose();
+            cts = null;
+        }
 
 
 

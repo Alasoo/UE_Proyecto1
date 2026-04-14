@@ -22,7 +22,7 @@ MonoBehaviour:
   repeatWater: 20
   waterSizeMin: {x: 8, y: 4}
   waterSizeMax: {x: 50, y: 40}
-  repeatMountain: 0
+  repeatMountain: 20
   mountainSizeMin: {x: 8, y: 4}
   mountainSizeMax: {x: 40, y: 20}
   treeAmount: 3

@@ -13122,9 +13122,61 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2729883800887400473, guid: a0ddc22242200064286254c725635e60, type: 3}
+      propertyPath: m_Alpha
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2729883800887400473, guid: a0ddc22242200064286254c725635e60, type: 3}
+      propertyPath: m_Interactable
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2729883800887400473, guid: a0ddc22242200064286254c725635e60, type: 3}
+      propertyPath: m_BlocksRaycasts
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5137559191985396320, guid: a0ddc22242200064286254c725635e60, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5137559191985396320, guid: a0ddc22242200064286254c725635e60, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5683528354734823627, guid: a0ddc22242200064286254c725635e60, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5683528354734823627, guid: a0ddc22242200064286254c725635e60, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5683528354734823627, guid: a0ddc22242200064286254c725635e60, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6895884428621976755, guid: a0ddc22242200064286254c725635e60, type: 3}
+      propertyPath: gameIndex
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7343544981773364035, guid: a0ddc22242200064286254c725635e60, type: 3}
+      propertyPath: m_SortingOrder
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 7343544981773364035, guid: a0ddc22242200064286254c725635e60, type: 3}
+      propertyPath: m_VertexColorAlwaysGammaSpace
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7343544981773364035, guid: a0ddc22242200064286254c725635e60, type: 3}
+      propertyPath: m_AdditionalShaderChannelsFlag
+      value: 25
+      objectReference: {fileID: 0}
     - target: {fileID: 7968350310418690796, guid: a0ddc22242200064286254c725635e60, type: 3}
       propertyPath: m_Name
       value: ____SceneLoader
+      objectReference: {fileID: 0}
+    - target: {fileID: 7968350310418690796, guid: a0ddc22242200064286254c725635e60, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
