@@ -10,17 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 44c9c9ec496bb994fbf52e4eb00b8706, type: 3}
-  m_Name: Enemigo1
+  m_Name: Wave2
   m_EditorClassIdentifier: Assembly-CSharp::EnemyScriptable
-  waterRule: {fileID: 0}
-  mountainRule: {fileID: 0}
-  ground: []
-  size: {x: 400, y: 250}
-  repeatWater: 5
-  waterSizeMin: {x: 8, y: 4}
-  waterSizeMax: {x: 40, y: 20}
-  repeatMountain: 3
-  mountainSizeMin: {x: 8, y: 4}
-  mountainSizeMax: {x: 40, y: 20}
-  treeAmount: 3
-  trees: []
+  waveData:
+  - enemyScriptable: {fileID: 11400000, guid: 850a3918870eb624dbcc13ee059795e9, type: 2}
+    minEnemies: 30
+    maxEnemies: 20
+  - enemyScriptable: {fileID: 11400000, guid: 1b0e8aadcc5c38442befe3e70e97e3ee, type: 2}
+    minEnemies: 5
+    maxEnemies: 10
+  - enemyScriptable: {fileID: 11400000, guid: 948aafcc19afb7448ba0bcf0b1f15e7b, type: 2}
+    minEnemies: 10
+    maxEnemies: 20

@@ -1,27 +1,33 @@
 using System;
 using System.Collections.Generic;
+using EnemySystem;
 using UnityEngine;
 
-
-[CreateAssetMenu(fileName = "NuevoEnemigo", menuName = "ScriptableObjects/Enemigo", order = 4)]
-public class EnemyScriptable : ScriptableObject
+namespace EnemySystem
 {
-    public SpriteRenderer sprite;
-    public EnemyData enemyData;
-    
+    public abstract class EnemyScriptable : ScriptableObject
+    {
+        [Header("BASE")]
+        public EnemyController enemyControllerPrefab;
+        public Sprite sprite;
+
+        [Header("STATS")]
+        public float hpMax;
+        [Space]
+        public float physicalArmor;
+        public float magicalArmor;
+        public float physicalDamage;
+        public float magicalDamage;
+        [Space]
+        public float speedMov;
+        [Space]
+        public float rangeAttack;
+        public float rangeVision;
+        [Space]
+        public float patrolRadius;
+        [Space]
+        public float attackCooldown;
+    }
 }
 
-[Serializable]
-public struct EnemyData
-{
-    public float hpMax;
-    public float manaMax;
-    public float energyMax;
-
-    public float physicalArmor;
-    public float magicalArmor;
-    public float physicalDamage;
-    public float magicalDamage;
-    public float speedMov;
-}
 
