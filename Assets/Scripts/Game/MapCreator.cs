@@ -12,7 +12,7 @@ namespace GameSystem
     public class MapCreator : Singleton<MapCreator>
     {
         [Header("REFERENCES")]
-        [SerializeField] private Tilemap groundTilemap;
+        [field: SerializeField] public Tilemap groundTilemap { get; private set; }
         [SerializeField] private Tilemap waterTilemap;
         [SerializeField] private Tilemap mountainTilemap;
 
@@ -20,7 +20,7 @@ namespace GameSystem
         [SerializeField] private List<BiomeScriptable> biomeList = new();
 
         [Header("MARGIN LIMIT")]
-        [SerializeField] private int margin = 20;
+        [field: SerializeField] public int margin { get; private set; } = 10;
         [Header("MARGIN BETWEEN TREES")]
         [SerializeField] float treeSpacing = 1.5f;
 
@@ -42,6 +42,7 @@ namespace GameSystem
         private float baseProgress = 0f;
         private float currentStepWeight = 0f;
 
+        public BiomeScriptable currentBiome { get; private set; }
 
         private void OnDestroy()
         {
@@ -59,35 +60,38 @@ namespace GameSystem
                 float time = Time.time;
                 ClearMap();
 
-                BiomeScriptable randomBiome = biomeList.RandomElement();
+                currentBiome = biomeList.RandomElement();
 
                 baseProgress = 0f;
 
                 currentStepWeight = 0.15f;
-                await MakeMountains(randomBiome);
+                await MakeMountains(currentBiome);
                 baseProgress += currentStepWeight;
 
                 currentStepWeight = 0.20f;
-                await MakeGround(randomBiome);
+                await MakeGround(currentBiome);
                 baseProgress += currentStepWeight;
 
                 currentStepWeight = 0.10f;
-                await MakeWater(randomBiome);
+                await MakeWater(currentBiome);
                 baseProgress += currentStepWeight;
 
                 currentStepWeight = 0.15f;
-                await MakeTrees(randomBiome);
+                await MakeTrees(currentBiome);
                 baseProgress += currentStepWeight;
 
                 currentStepWeight = 0.15f;
-                await MakeLimit(randomBiome);
+                await MakeLimit(currentBiome);
                 baseProgress += currentStepWeight;
 
                 currentStepWeight = 0.15f;
                 await navMeshSurface.BuildNavMeshAsync();
                 baseProgress += currentStepWeight;
 
+                currentStepWeight = 0.10f;
                 await enemyCreator.Init();
+                baseProgress += currentStepWeight;
+
                 baseProgress = 1f;
                 OnProgress?.Invoke(baseProgress);
                 Debug.Log($"Tiempo en crear bioma: {Time.time - time}");
@@ -281,7 +285,7 @@ namespace GameSystem
             }
         }
 
-        private async UniTask<bool> IsAreaFree(Vector3Int centerCell, int radius, Vector3 potentialPos)
+        public async UniTask<bool> IsAreaFree(Vector3Int centerCell, int radius, Vector3 potentialPos)
         {
             foreach (Vector3 existingTreePos in treeList.Values)
             {
@@ -335,7 +339,7 @@ namespace GameSystem
             }
         }
 
-        private void ReportLocalProgress(float localProgress)
+        public void ReportLocalProgress(float localProgress)
         {
             OnProgress?.Invoke(baseProgress + (currentStepWeight * localProgress));
         }

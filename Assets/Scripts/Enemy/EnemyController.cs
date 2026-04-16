@@ -7,6 +7,7 @@ namespace EnemySystem
     {
         [SerializeField] protected NavMeshAgent agent;
         [SerializeField] protected float waitTime = 2f;
+        [field: SerializeField] public SpriteRenderer spriteRenderer { get; private set; }
 
 
 

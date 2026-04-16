@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: Wave2
   m_EditorClassIdentifier: Assembly-CSharp::EnemyScriptable
   waveData:
-  - enemyScriptable: {fileID: 11400000, guid: 850a3918870eb624dbcc13ee059795e9, type: 2}
+  - enemyScriptable: {fileID: 11400000, guid: 1ead71254ada6564bb5383c500a77c52, type: 2}
     minEnemies: 30
     maxEnemies: 20
-  - enemyScriptable: {fileID: 11400000, guid: 1b0e8aadcc5c38442befe3e70e97e3ee, type: 2}
+  - enemyScriptable: {fileID: 11400000, guid: 1ead71254ada6564bb5383c500a77c52, type: 2}
     minEnemies: 5
     maxEnemies: 10
-  - enemyScriptable: {fileID: 11400000, guid: 948aafcc19afb7448ba0bcf0b1f15e7b, type: 2}
+  - enemyScriptable: {fileID: 11400000, guid: 1ead71254ada6564bb5383c500a77c52, type: 2}
     minEnemies: 10
     maxEnemies: 20
