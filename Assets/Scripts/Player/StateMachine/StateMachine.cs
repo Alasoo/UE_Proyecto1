@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Controller
 {
-    public class StateMachine : Singleton<StateMachine>
+    public class StateMachine : MonoBehaviour
     {
         private State currentState;
 
@@ -20,6 +20,11 @@ namespace Controller
             currentState?.Tick(Time.deltaTime);
         }
 
+        private void LateUpdate()
+        {
+            currentState?.LateTick(Time.deltaTime);
+        }
+
         private void FixedUpdate()
         {
             currentState?.FixedTick(Time.fixedDeltaTime);
@@ -30,6 +35,15 @@ namespace Controller
             currentState?.OnDestroy();
         }
 
+        void OnTriggerEnter2D(Collider2D collision)
+        {
+            currentState?.OnTriggerEnter2D(collision);
+        }
+
+        void OnTriggerExit2D(Collider2D collision)
+        {
+            currentState?.OnTriggerExit2D(collision);
+        }
 
     }
 }

@@ -31,6 +31,7 @@ namespace GameSystem
         [SerializeField] private EnemyCreator enemyCreator;
 
 
+
         private CancellationTokenSource ctsCreator;
 
         private List<Vector3Int> mountainTileUsed = new();
@@ -50,6 +51,12 @@ namespace GameSystem
             ctsCreator = null;
         }
 
+        protected override void Awake()
+        {
+            base.Awake();
+            _ = Init();
+        }
+
         [ContextMenu("Init")]
         public async UniTask Init()
         {
@@ -59,6 +66,7 @@ namespace GameSystem
             {
                 float time = Time.time;
                 ClearMap();
+                enemyCreator.ClearNpcs();
 
                 currentBiome = biomeList.RandomElement();
 
@@ -84,11 +92,13 @@ namespace GameSystem
                 await MakeLimit(currentBiome);
                 baseProgress += currentStepWeight;
 
-                currentStepWeight = 0.15f;
+                currentStepWeight = 0.10f;
                 await navMeshSurface.BuildNavMeshAsync();
                 baseProgress += currentStepWeight;
 
-                currentStepWeight = 0.10f;
+                await UniTask.Yield(ctsCreator.Token);
+
+                currentStepWeight = 0.15f;
                 await enemyCreator.Init();
                 baseProgress += currentStepWeight;
 

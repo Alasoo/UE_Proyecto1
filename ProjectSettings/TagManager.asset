@@ -2,7 +2,7 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!78 &1
 TagManager:
-  serializedVersion: 2
+  serializedVersion: 3
   tags: []
   layers:
   - Default
@@ -41,3 +41,23 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Terrain
+    uniqueID: 3826507773
+    locked: 0
+  - name: Mountain
+    uniqueID: 1441480573
+    locked: 0
+  - name: Grass
+    uniqueID: 2418604931
+    locked: 0
+  - name: Character
+    uniqueID: 1304141521
+    locked: 0
+  - name: Effects
+    uniqueID: 3473210585
+    locked: 0
+  - name: Tree
+    uniqueID: 1604729945
+    locked: 0
+  m_RenderingLayers:
+  - Default

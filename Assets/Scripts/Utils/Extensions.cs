@@ -118,6 +118,32 @@ namespace MyExtensions
         }
 
 
+        public static async UniTask LerpAlpha(this SpriteRenderer img, float target, float duration, CancellationToken token)
+        {
+            var time = 0f;
+            var startValue = img.color.a;
+            while (time < duration && !token.IsCancellationRequested)
+            {
+                var color = img.color;
+                color.a = Mathf.Lerp(startValue, target, time / duration);
+                img.color = color;
+                time += Time.unscaledDeltaTime;
+                await UniTask.Yield();
+            }
+
+
+            if (!token.IsCancellationRequested)
+            {
+                Color color = img.color;
+                color.a = target;
+                img.color = color;
+            }
+            else
+                throw new TaskCanceledException();
+        }
+
+
+
 
         public static async UniTask LerpRectMovementX(this RectTransform rt, float target, float duration, CancellationToken token)
         {
@@ -165,7 +191,7 @@ namespace MyExtensions
             cts?.Dispose();
             cts = null;
         }
- 
+
 
         public static T RandomElement<T>(this List<T> list)
         {

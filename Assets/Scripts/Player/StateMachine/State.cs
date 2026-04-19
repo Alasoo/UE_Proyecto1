@@ -10,10 +10,14 @@ namespace Controller
         public virtual void Enter() { }
 
         public virtual void Tick(float deltaTime) { }
+        public virtual void LateTick(float deltaTime) { }
         public virtual void FixedTick(float fixedDeltaTime) { }
 
         public virtual void Exit() { }
         public virtual void OnDestroy() { }
+        public virtual void OnTriggerEnter2D(Collider2D other) { }
+        public virtual void OnTriggerExit2D(Collider2D other) { }
+
 
         protected float GetNormalizedTime(Animator animator, string tag)
         {

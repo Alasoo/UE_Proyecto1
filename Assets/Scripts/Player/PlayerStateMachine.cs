@@ -8,7 +8,7 @@ namespace Controller.Player
     [RequireComponent(typeof(InputReader))]
     public class PlayerStateMachine : StateMachine
     {
-        public static PlayerStateMachine player;
+        public static PlayerStateMachine Instance;
 
         [field: Header("COMPONENTS")]
         [field: SerializeField] public InputReader inputReader { get; private set; }
@@ -24,6 +24,27 @@ namespace Controller.Player
 
 
         [field: SerializeField] public float turnSmoothTime = .1f;
+
+        public bool canMove { get; private set; } = true;
+
+
+        private void Awake()
+        {
+            Instance = this;
+        }
+
+        public void SetCanMove(bool value)
+        {
+            if (canMove == value) return;
+            canMove = value;
+            if (!canMove)
+            {
+                rb.linearVelocity = Vector2.zero;
+            }
+        }
+
+
+
 
         private void Start()
         {

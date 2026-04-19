@@ -21,6 +21,8 @@ namespace Controller.Player
 
         public override void Tick(float deltaTime)
         {
+            if (!stateMachine.canMove) return;
+
             if (stateMachine.inputReader.movementValue.magnitude <= .1f)
             {
                 direction = Vector2.zero;
@@ -32,6 +34,7 @@ namespace Controller.Player
 
         public override void FixedTick(float fixedDeltaTime)
         {
+            if (!stateMachine.canMove) return;
             Move(fixedDeltaTime, direction);
         }
 

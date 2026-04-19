@@ -1,0 +1,37 @@
+using System.Collections;
+using UnityEngine;
+using Controller.Player;
+
+
+namespace Controller.Enemy
+{
+    public class EnemyFollowPlayerState : EnemyBaseState
+    {
+        public EnemyFollowPlayerState(EnemyStateMachine stateMachine) : base(stateMachine) { }
+
+        public override void Enter()
+        {
+            stateMachine.canvas.gameObject.SetActive(true);
+        }
+
+        public override void Tick(float deltaTime)
+        {
+            stateMachine.agent.SetDestination(PlayerStateMachine.Instance.transform.position);
+            if (Vector3.Distance(PlayerStateMachine.Instance.transform.position, stateMachine.transform.position) <= stateMachine.enemyScriptable.rangeAttack)
+            {
+                stateMachine.SwitchState(new EnemyAttackState(stateMachine));
+            }
+        }
+
+        public override void LateTick(float deltaTime)
+        {
+            RotateBodyTowardsMovement(deltaTime);
+        }
+
+        public override void Exit()
+        {
+            stateMachine.agent.ResetPath();
+        }
+
+    }
+}

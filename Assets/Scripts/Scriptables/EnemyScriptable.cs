@@ -1,14 +1,15 @@
 using System;
 using System.Collections.Generic;
-using EnemySystem;
+using BulletSystem;
+using Controller.Enemy;
 using UnityEngine;
+
 
 namespace EnemySystem
 {
     public abstract class EnemyScriptable : ScriptableObject
     {
         [Header("BASE")]
-        public EnemyController enemyControllerPrefab;
         public Sprite sprite;
 
         [Header("STATS")]
@@ -27,6 +28,10 @@ namespace EnemySystem
         public float patrolRadius;
         [Space]
         public float attackCooldown;
+
+
+        public virtual EnemyStateMachine TakeCharacterPrefab() { return null; }
+        public virtual BulletScriptable TakeBulletScriptable() { return null; }
     }
 }
 

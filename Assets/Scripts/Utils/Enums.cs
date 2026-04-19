@@ -1,4 +1,3 @@
-using UnityEngine;
 
 public enum Character
 {
@@ -15,3 +14,4 @@ public enum Slot
     None,
     Weapon
 }
+
