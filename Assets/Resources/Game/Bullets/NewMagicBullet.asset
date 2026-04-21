@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: NewMagicBullet
   m_EditorClassIdentifier: Assembly-CSharp::BulletSystem.MagicBulletScriptable
   sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
-  lifeTime: 10
-  speed: 5
+  lifeTime: 2
+  speed: 10
   bulletPrefab: {fileID: 5793275415114997576, guid: da2e6e3b15e23f8439cdcfd7fac8ce75, type: 3}
   bulletCount: 15
   startColor: {r: 1, g: 1, b: 1, a: 1}
-  endColor: {r: 1, g: 1, b: 1, a: 1}
+  endColor: {r: 1, g: 1, b: 1, a: 0}

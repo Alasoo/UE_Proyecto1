@@ -10,7 +10,7 @@ namespace BulletSystem
         protected virtual void OnTriggerEnter2D(Collider2D collision)
         {
             if (collision.gameObject != PlayerStateMachine.Instance.gameObject) return;
-            //PlayerStateMachine.Instance.Health.TakeDamage();
+            PlayerStateMachine.Instance.health.TakeDamage(10);
             BulletPool.Instance.Return(this);
         }
 

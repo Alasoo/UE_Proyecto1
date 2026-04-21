@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Threading;
 using Cysharp.Threading.Tasks;
@@ -11,6 +12,7 @@ namespace BulletSystem
     {
         [SerializeField] protected SpriteRenderer spriteRenderer;
         [SerializeField] protected TrailRenderer trail;
+        [SerializeField] protected bool scaleBulletByTime = false;
 
         protected BulletScriptable bulletScriptable;
         protected Vector3 moveDirection;
@@ -46,12 +48,19 @@ namespace BulletSystem
             }
 
             transform.position = position;
+            transform.localScale = Vector3.one;
             gameObject.SetActive(true);
             moveDirection = direction.normalized;
 
+            ctsMove?.Cancel();
             ctsMove = new();
-            _ = MoveLoop();
-            _ = LifeTimeAsync();
+            try
+            {
+                _ = MoveLoop();
+                _ = LifeTimeAsync();
+            }
+            catch (OperationCanceledException) { }
+
         }
 
 
@@ -82,6 +91,8 @@ namespace BulletSystem
 
         private async UniTaskVoid LifeTimeAsync()
         {
+            if (scaleBulletByTime)
+                _ = transform.LerpScale(Vector3.zero, bulletScriptable.lifeTime, ctsMove.Token);
             await UniTask.Delay(System.TimeSpan.FromSeconds(bulletScriptable.lifeTime), cancellationToken: ctsMove.Token);
             BulletPool.Instance.Return(this);
         }

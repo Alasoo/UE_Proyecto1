@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using HealthSystem;
 using UnityEngine;
 
 
@@ -14,6 +15,8 @@ namespace Controller.Player
         [field: SerializeField] public InputReader inputReader { get; private set; }
         [field: SerializeField] public Rigidbody2D rb { get; private set; }
         [field: SerializeField] public Camera mainCamera { get; private set; }
+        [field: SerializeField] public SpriteRenderer spriteRenderer { get; private set; }
+        [field: SerializeField] public Health health { get; private set; }
 
 
         [field: Header("SPEEDS")]
@@ -21,6 +24,8 @@ namespace Controller.Player
 
         [Tooltip("Sprint speed of the character in m/s")]
         public float sprintSpeed = 5.335f;
+
+
 
 
         [field: SerializeField] public float turnSmoothTime = .1f;
@@ -31,6 +36,7 @@ namespace Controller.Player
         private void Awake()
         {
             Instance = this;
+            health.Init(200, spriteRenderer.material);
         }
 
         public void SetCanMove(bool value)
