@@ -54,7 +54,7 @@ namespace GameSystem
         protected override void Awake()
         {
             base.Awake();
-            _ = Init();
+            //_ = Init();
         }
 
         [ContextMenu("Init")]
@@ -92,13 +92,14 @@ namespace GameSystem
                 await MakeLimit(currentBiome);
                 baseProgress += currentStepWeight;
 
-                currentStepWeight = 0.10f;
+                currentStepWeight = 0.05f;
                 await navMeshSurface.BuildNavMeshAsync();
+                ReportLocalProgress(1f);
                 baseProgress += currentStepWeight;
 
                 await UniTask.Yield(ctsCreator.Token);
 
-                currentStepWeight = 0.15f;
+                currentStepWeight = 0.20f;
                 await enemyCreator.Init();
                 baseProgress += currentStepWeight;
 

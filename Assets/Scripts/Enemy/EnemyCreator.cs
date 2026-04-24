@@ -68,6 +68,10 @@ namespace GameSystem
         private async UniTask CreateNPCs()
         {
             WaveScriptable wave = waves.RandomElement();
+
+            int totalWaves = wave.waveData.Count; 
+            int currentWaveIndex = 0;
+
             foreach (WaveData waveData in wave.waveData)
             {
                 int amountToSpawn = UnityEngine.Random.Range(waveData.minEnemies, waveData.maxEnemies + 1);
@@ -123,9 +127,13 @@ namespace GameSystem
                         Destroy(newEnemy.gameObject);
                     }
 
-                    mapCreator.ReportLocalProgress((float)(i + 1) / amountToSpawn * wave.waveData.Count);
+                    float fractionOfCurrentWave = (float)(i + 1) / amountToSpawn;
+                    float overallEnemyProgress = (currentWaveIndex + fractionOfCurrentWave) / totalWaves;
+                    mapCreator.ReportLocalProgress(overallEnemyProgress);
+                    
                     await UniTask.Yield(cancellationToken: ctsCreator.Token);
                 }
+                currentWaveIndex++;
             }
         }
 

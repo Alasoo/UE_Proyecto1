@@ -70,26 +70,21 @@ namespace GameSystem
             ctsLoad?.Cancel();
             ctsLoad = new();
 
-            Debug.Log($"1 -- {Time.time}");
             await FadeOn();
-            Debug.Log($"2 -- {Time.time}");
 
             AsyncOperation op = SceneManager.LoadSceneAsync(gameIndex);
             op.allowSceneActivation = false;
             while (op.progress < 0.9f) { await UniTask.Yield(cancellationToken: ctsLoad.Token); }
             op.allowSceneActivation = true;
 
-            Debug.Log($"3 -- {Time.time}");
             await UniTask.WaitUntil(() => MapCreator.Instance != null, cancellationToken: ctsLoad.Token);
-            Debug.Log($"4 -- {Time.time}");
+
             MapCreator.Instance.OnProgress += OnProgress;
             await MapCreator.Instance.Init();
             MapCreator.Instance.OnProgress -= OnProgress;
 
-            Debug.Log($"5 -- {Time.time}");
             await UniTask.WaitForSeconds(.5f);      //pequeño delay para que se vea el 100%
             _ = FadeOff();
-            Debug.Log($"6 -- {Time.time}");
         }
 
 
@@ -113,10 +108,7 @@ namespace GameSystem
                 cg.blocksRaycasts = true;
                 await cg.LerpAlpha(1f, duration, ctsFade.Token);
             }
-            catch (OperationCanceledException)
-            {
-
-            }
+            catch (OperationCanceledException){}
             finally
             {
                 ctsFade?.ClearCts();
