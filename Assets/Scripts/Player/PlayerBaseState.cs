@@ -19,8 +19,8 @@ namespace Controller.Player
 
         protected void Move(float deltaTime, Vector2 direction)
         {
-            float speed = stateMachine.inputReader.sprint ? stateMachine.sprintSpeed : stateMachine.moveSpeed;
-            Vector2 targetVelocity = direction * speed;
+            //float speed = stateMachine.inputReader.sprint ? stateMachine.sprintSpeed : stateMachine.moveSpeed;
+            Vector2 targetVelocity = direction * stateMachine.playerStats.GetMovementSpeed;
             //Debug.Log($"targetVelocity: {targetVelocity}");
             stateMachine.rb.linearVelocity = new Vector2(targetVelocity.x, targetVelocity.y);
         }

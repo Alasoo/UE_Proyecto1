@@ -4,11 +4,11 @@ using UnityEngine;
 using MyExtensions;
 using UnityEngine.UI;
 using Cysharp.Threading.Tasks;
+using Controller.Player;
 
 
 namespace HealthSystem
 {
-
     public class Health : MonoBehaviour
     {
         [SerializeField] protected Slider hpSlider;
@@ -24,8 +24,7 @@ namespace HealthSystem
 
         void OnDestroy()
         {
-            ctsFlash?.ClearCts();
-            ctsFlash = null;
+            Extensions.ClearCts(ref ctsFlash);
         }
 
 

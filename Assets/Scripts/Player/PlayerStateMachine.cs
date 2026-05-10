@@ -16,14 +16,10 @@ namespace Controller.Player
         [field: SerializeField] public Rigidbody2D rb { get; private set; }
         [field: SerializeField] public Camera mainCamera { get; private set; }
         [field: SerializeField] public SpriteRenderer spriteRenderer { get; private set; }
-        [field: SerializeField] public Health health { get; private set; }
+        [field: SerializeField] public PlayerUI playerUI { get; private set; }
+        [field: SerializeField] public PlayerAutoAttack playerAutoAttack { get; private set; }
 
 
-        [field: Header("SPEEDS")]
-        public float moveSpeed = 2.0f;
-
-        [Tooltip("Sprint speed of the character in m/s")]
-        public float sprintSpeed = 5.335f;
 
 
 
@@ -33,14 +29,15 @@ namespace Controller.Player
         public bool canMove { get; private set; } = true;
 
 
-        
+
         public PlayerStats playerStats { get; private set; } = new();
 
 
         private void Awake()
         {
             Instance = this;
-            health.Init(200, spriteRenderer.material);
+            playerUI.Init(playerStats, spriteRenderer.material);
+            playerAutoAttack.Init(playerStats);
         }
 
         public void SetCanMove(bool value)

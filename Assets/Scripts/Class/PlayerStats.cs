@@ -24,6 +24,18 @@ namespace Controller.Player
         public int attackSpeedPercent { get; private set; } = 0;
 
 
+
+        public int lvl { get; private set; } = 1;
+        public int experience { get; private set; } = 0;
+        public int maxExperience { get; private set; } = 1000;
+
+        public event Action OnAddExperience;
+        public event Action OnAddLvl;
+        public event Action OnTakeDamage;
+        public event Action OnDie;
+
+
+
         public void AddProjectiles(int amount)
         {
             currentProjectiles += amount;
@@ -62,6 +74,26 @@ namespace Controller.Player
             attackSpeedPercent += amount;
         }
 
+        public void AddExperience(int amount)
+        {
+            experience = Mathf.Min(experience + amount, maxExperience);
+            if (experience >= maxExperience)
+            {
+                lvl++;
+                experience = 0;
+                OnAddLvl?.Invoke();
+            }
+            OnAddExperience?.Invoke();
+        }
+
+
+        public virtual void TakeDamage(int damage)
+        {
+            currentHealth = Mathf.Max(0, currentHealth - damage);
+            OnTakeDamage?.Invoke();
+            if (currentHealth <= 0)
+                OnDie?.Invoke();
+        }
 
         #region GETS
         public float GetMovementSpeed => movementSpeedBase + movementSpeedBase * movementSpeedPercent;
