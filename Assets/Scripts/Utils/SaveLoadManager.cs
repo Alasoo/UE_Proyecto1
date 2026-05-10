@@ -3,7 +3,6 @@
 using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
-using SaveSystem.Player;
 using UnityEngine;
 
 namespace SaveSystem

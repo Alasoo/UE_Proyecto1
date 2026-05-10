@@ -1,5 +1,6 @@
 using System;
 using AudioController;
+using GameSystem;
 using MyUI.Panels;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,7 +11,6 @@ namespace MyUI.OptionButtons
     public class MainMenuState : MenuState
     {
         [Header("MENU STATE")]
-        [SerializeField] private MenuState playerMenu;
         [SerializeField] private MenuState shopMenu;
         [SerializeField] private MenuState settingsMenu;
 
@@ -32,7 +32,7 @@ namespace MyUI.OptionButtons
         private void OnClickPlayPanel()
         {
             Audios.Instance.PlayClickButton();
-            MenuStateMachine.Instance.ChangeMenu(playerMenu);
+            _ = SceneLoader.Instance.LoadGame();
         }
 
         private void OnClickShopPanel()

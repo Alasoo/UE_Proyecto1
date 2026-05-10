@@ -203,6 +203,14 @@ namespace MyExtensions
         }
 
 
+        public static void ClearCts(ref CancellationTokenSource cts)
+        {
+            cts?.Cancel();
+            cts?.Dispose();
+            cts = null;
+        }
+
+
 
     }
 

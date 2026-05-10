@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace SaveSystem.Item
 {
+    [Obsolete]
     [Serializable]
     public class ItemWrap
     {

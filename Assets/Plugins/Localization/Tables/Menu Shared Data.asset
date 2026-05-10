@@ -123,6 +123,46 @@ MonoBehaviour:
     m_Key: daggers
     m_Metadata:
       m_Items: []
+  - m_Id: 26004659024945152
+    m_Key: UpgradeTitle
+    m_Metadata:
+      m_Items: []
+  - m_Id: 26005202225061888
+    m_Key: AddProjectile
+    m_Metadata:
+      m_Items: []
+  - m_Id: 26005404478595072
+    m_Key: LifeSteal
+    m_Metadata:
+      m_Items: []
+  - m_Id: 26005828992491520
+    m_Key: Armor
+    m_Metadata:
+      m_Items: []
+  - m_Id: 26006009964126208
+    m_Key: Luck
+    m_Metadata:
+      m_Items: []
+  - m_Id: 26006192894500864
+    m_Key: Critical
+    m_Metadata:
+      m_Items: []
+  - m_Id: 26006530473058304
+    m_Key: SpeedMovement
+    m_Metadata:
+      m_Items: []
+  - m_Id: 26007401172819968
+    m_Key: MaxHp
+    m_Metadata:
+      m_Items: []
+  - m_Id: 26007669864128512
+    m_Key: Damage
+    m_Metadata:
+      m_Items: []
+  - m_Id: 26007991613382656
+    m_Key: AttackSpeed
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

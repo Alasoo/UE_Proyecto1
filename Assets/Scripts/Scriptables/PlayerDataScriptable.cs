@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using Controller.Player;
 using SaveSystem;
-using SaveSystem.Player;
 using UnityEngine;
 using UnityEngine.Localization;
 
@@ -33,15 +32,17 @@ public class PlayerDataScriptable : ScriptableObject
 
     //public int experience = 0;
     //public int lvl = 1;
-    public PlayerData playerData = new();
+    //public PlayerData playerData = new();
 
 
 
     public void LoadPlayerData()
     {
+        /*
         var dataLoad = SaveLoadManager<PlayerData>.LoadData(id);
         if (!dataLoad.success) return;
         playerData = dataLoad.data;
+        */
     }
 }
 

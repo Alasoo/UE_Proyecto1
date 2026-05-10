@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using RewardSystem;
 using UnityEngine;
 
 
@@ -22,6 +23,13 @@ namespace Controller.Player
         public override void Tick(float deltaTime)
         {
             if (!stateMachine.canMove) return;
+
+#if UNITY_EDITOR
+            if (Input.GetKeyDown(KeyCode.P))
+            {
+                RewardPopup.Instance.Open(stateMachine.playerStats);
+            }
+#endif
 
             if (stateMachine.inputReader.movementValue.magnitude <= .1f)
             {

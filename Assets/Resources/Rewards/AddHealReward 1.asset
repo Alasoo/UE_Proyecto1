@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6619d09ece49a48489159d0f654e833b, type: 3}
+  m_Name: AddHealReward 1
+  m_EditorClassIdentifier: Assembly-CSharp::AddHealScriptable
+  localization:
+    m_TableReference:
+      m_TableCollectionName: GUID:f13e5b40258cd574d92eb15d16a0a262
+    m_TableEntryReference:
+      m_KeyId: 26007401172819968
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  maxHealToAdd: 30
+  references:
+    version: 2
+    RefIds: []

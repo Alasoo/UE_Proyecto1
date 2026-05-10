@@ -129,6 +129,46 @@ MonoBehaviour:
     m_Localized: Dagas
     m_Metadata:
       m_Items: []
+  - m_Id: 26004659024945152
+    m_Localized: Elige mejora
+    m_Metadata:
+      m_Items: []
+  - m_Id: 26005202225061888
+    m_Localized: cantidad de proyectiles
+    m_Metadata:
+      m_Items: []
+  - m_Id: 26005404478595072
+    m_Localized: robo de vida
+    m_Metadata:
+      m_Items: []
+  - m_Id: 26005828992491520
+    m_Localized: armadura
+    m_Metadata:
+      m_Items: []
+  - m_Id: 26006009964126208
+    m_Localized: suerte
+    m_Metadata:
+      m_Items: []
+  - m_Id: 26006192894500864
+    m_Localized: "probabilidad de cr\xEDtico"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 26006530473058304
+    m_Localized: velocidad de movimiento
+    m_Metadata:
+      m_Items: []
+  - m_Id: 26007401172819968
+    m_Localized: max  HP
+    m_Metadata:
+      m_Items: []
+  - m_Id: 26007669864128512
+    m_Localized: "da\xF1o"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 26007991613382656
+    m_Localized: velocidad de ataque
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:

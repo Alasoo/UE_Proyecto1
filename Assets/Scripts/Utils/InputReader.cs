@@ -15,7 +15,7 @@ namespace Controller.Player
 
         public event Action InteractEvent;
         public event Action TargetEvent;
-        public event Action CancelEvent;
+        public event Action OnCancelEvent;
 
 
         private Controls controls;
@@ -56,12 +56,12 @@ namespace Controller.Player
         public void OnCancel(InputAction.CallbackContext context)
         {
             if (!context.performed) return;
-            CancelEvent?.Invoke();
+            OnCancelEvent?.Invoke();
         }
 
         public void OnLook(InputAction.CallbackContext context)
         {
-            
+
         }
 
         public void OnAttack(InputAction.CallbackContext context)
@@ -88,7 +88,7 @@ namespace Controller.Player
 
         public void OnZoom(InputAction.CallbackContext context)
         {
-            
+
         }
 
         public void OnTarget(InputAction.CallbackContext context)

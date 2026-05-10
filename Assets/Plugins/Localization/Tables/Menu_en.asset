@@ -129,6 +129,46 @@ MonoBehaviour:
     m_Localized: Daggers
     m_Metadata:
       m_Items: []
+  - m_Id: 26004659024945152
+    m_Localized: Choose improvement
+    m_Metadata:
+      m_Items: []
+  - m_Id: 26005202225061888
+    m_Localized: number of projectiles
+    m_Metadata:
+      m_Items: []
+  - m_Id: 26005404478595072
+    m_Localized: life steal
+    m_Metadata:
+      m_Items: []
+  - m_Id: 26005828992491520
+    m_Localized: Armor
+    m_Metadata:
+      m_Items: []
+  - m_Id: 26006009964126208
+    m_Localized: luck
+    m_Metadata:
+      m_Items: []
+  - m_Id: 26006192894500864
+    m_Localized: probability of critical
+    m_Metadata:
+      m_Items: []
+  - m_Id: 26006530473058304
+    m_Localized: speed of movement
+    m_Metadata:
+      m_Items: []
+  - m_Id: 26007401172819968
+    m_Localized: max  HP
+    m_Metadata:
+      m_Items: []
+  - m_Id: 26007669864128512
+    m_Localized: Damage
+    m_Metadata:
+      m_Items: []
+  - m_Id: 26007991613382656
+    m_Localized: attack speed
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:

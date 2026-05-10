@@ -33,6 +33,10 @@ namespace Controller.Player
         public bool canMove { get; private set; } = true;
 
 
+        
+        public PlayerStats playerStats { get; private set; } = new();
+
+
         private void Awake()
         {
             Instance = this;
