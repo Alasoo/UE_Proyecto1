@@ -189,7 +189,6 @@ namespace MyExtensions
         {
             cts?.Cancel();
             cts?.Dispose();
-            cts = null;
         }
 
 

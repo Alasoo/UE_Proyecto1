@@ -1,31 +1,71 @@
+using System;
+using Controller.Player;
 using GameSystem;
 using SaveSystem;
+using TMPro;
 using UnityEngine;
 
-public class GameManager : SingletonDontDestroy<GameManager>
+public class GameManager : Singleton<GameManager>
 {
-    protected override void Awake()
+    [Header("GAME TIME")]
+    [SerializeField] private TMP_Text gameTimeText;
+
+
+    private float gameTime = 0f;
+    private GameInfo currentGame = null;
+
+    public event Action<int> OnUpdateTime;
+    private bool startGame = false;
+
+
+    void Start()
     {
-        base.Awake();
-        //SaveLoadManager.LoadData();
+        PlayerStateMachine.Instance.playerStats.OnDie += OnPlayerDie;
+        currentGame = new();
+        gameTimeText.text = "00:00:00";
     }
 
-#if UNITY_EDITOR
-    void Update()
+    void OnDestroy()
     {
-        if (Input.GetKeyDown(KeyCode.T))
+        if (PlayerStateMachine.Instance != null && PlayerStateMachine.Instance.playerStats != null)
+            PlayerStateMachine.Instance.playerStats.OnDie -= OnPlayerDie;
+    }
+
+    private void OnPlayerDie()
+    {
+        currentGame.totalSeconds = (int)gameTime;
+        //podria guardar cuantos magos he matado, curaciones etc...
+
+        var gameWrap = SaveLoadManager<GameWrap>.LoadData(GameWrap.GAME_KEY);
+        if (gameWrap.success)
         {
-            if (GameInfo.playerSelected == null) return;
-            //GameInfo.playerSelected.playerData.AddExperience(Random.Range(0, 50));
-            //Debug.Log(GameInfo.playerSelected.playerData.experience);
-            //SaveLoadManager<PlayerData>.SaveData(GameInfo.playerSelected.id, GameInfo.playerSelected.playerData);
+            gameWrap.data.games.Add(currentGame);
+            SaveLoadManager<GameWrap>.SaveData(GameWrap.GAME_KEY, gameWrap.data);
+            return;
         }
 
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            PlayerPrefs.DeleteAll();
-            Debug.Log($"Borrado playerprefs");
-        }
+        GameWrap newGameWrap = new();
+        newGameWrap.games.Add(currentGame);
+        SaveLoadManager<GameWrap>.SaveData(GameWrap.GAME_KEY, newGameWrap);
     }
-#endif
+
+    public void StartGame()
+    {
+        gameTime = 0f;
+        startGame = true;
+    }
+
+
+    private void Update()
+    {
+        if (!startGame) return;
+        int lastSec = (int)gameTime;
+        gameTime += Time.deltaTime;
+        int newSecond = (int)gameTime;
+        if (lastSec != newSecond)
+            OnUpdateTime?.Invoke(newSecond);
+
+        TimeSpan timeSpan = TimeSpan.FromSeconds(gameTime);
+        gameTimeText.text = $"{(int)timeSpan.TotalHours}:{timeSpan.Minutes}:{timeSpan.Seconds}";
+    }
 }

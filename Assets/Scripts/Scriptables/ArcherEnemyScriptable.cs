@@ -6,15 +6,15 @@ using UnityEngine;
 
 namespace EnemySystem
 {
-    [CreateAssetMenu(fileName = "NewMageEnemy", menuName = "ScriptableObjects/Enemies/Mage", order = 1)]
-    public class MageEnemyScriptable : EnemyScriptable
+    [CreateAssetMenu(fileName = "NewArcherEnemy", menuName = "ScriptableObjects/Enemies/Archer", order = 1)]
+    public class ArcherEnemyScriptable : EnemyScriptable
     {
         [Header("MAGE COMBAT")]
-        public MageStateMachine enemyPrefab;
-        public float manaMax;
+        public ArcherStateMachine enemyPrefab;
+        public float energyMax;
 
         [Header("BULLETS")]
-        public MagicBulletScriptable bulletScriptable;
+        public BulletScriptable bulletScriptable;
 
 
 

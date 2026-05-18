@@ -17,13 +17,28 @@ namespace MyUI.ItemShop
         [SerializeField] private ScrollRect scrollRect;
         [Space]
         [SerializeField] private Button backButton;
+        [Header("PREFAB")]
+        [SerializeField] private RankingGame rankingGame;
 
-
-        private const string ITEMSKEY = "items";
 
         public override void Init()
         {
             backButton.onClick.AddListener(OnClickBack);
+
+            var gameWrap = SaveLoadManager<GameWrap>.LoadData(GameWrap.GAME_KEY);
+            if (gameWrap.success)
+            {
+                if (gameWrap.data == null || gameWrap.data.games == null || gameWrap.data.games.Count == 0) return;
+
+                foreach (var game in gameWrap.data.games)
+                {
+                    RankingGame rankingClone = Instantiate(rankingGame, scrollRect.content);
+                    rankingClone.Init(game);
+                }
+
+                return;
+            }
+
         }
 
 

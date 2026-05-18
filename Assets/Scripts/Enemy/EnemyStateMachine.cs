@@ -40,7 +40,7 @@ namespace Controller.Enemy
             agent.updateUpAxis = false;
             spriteRenderer.sprite = enemyScriptable.sprite;
 
-            gameObject.SetActive(true);
+            //gameObject.SetActive(true);
         }
 
 

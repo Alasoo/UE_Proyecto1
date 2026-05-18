@@ -1,12 +1,34 @@
 
 
 using System;
+using System.Collections.Generic;
 
 
 namespace GameSystem
 {
-    public static class GameInfo
+    [Serializable]
+    public class GameWrap
     {
-        public static PlayerDataScriptable playerSelected = null;
+        [NonSerialized] public static readonly string GAME_KEY = "GameWrap";
+        public List<GameInfo> games = new();
+    }
+
+    [Serializable]
+    public class GameInfo
+    {
+        public DateTime gameDate;
+        public int totalSeconds;
+
+
+        public GameInfo()
+        {
+            gameDate = DateTime.Now;
+        }
+
+        public GameInfo(int totalSeconds)
+        {
+            gameDate = DateTime.Now;
+            this.totalSeconds = totalSeconds;
+        }
     }
 }

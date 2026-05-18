@@ -32,7 +32,7 @@ namespace GameSystem
 
 
 
-        private CancellationTokenSource ctsCreator;
+        private CancellationTokenSource ctsCreator, ctsAreaFree;
 
         private List<Vector3Int> mountainTileUsed = new();
         private List<Vector3Int> waterTileUsed = new();
@@ -47,8 +47,8 @@ namespace GameSystem
 
         private void OnDestroy()
         {
-            ctsCreator?.ClearCts();
-            ctsCreator = null;
+            Extensions.ClearCts(ref ctsCreator);
+            Extensions.ClearCts(ref ctsAreaFree);
         }
 
         protected override void Awake()
@@ -105,6 +105,7 @@ namespace GameSystem
 
                 baseProgress = 1f;
                 OnProgress?.Invoke(baseProgress);
+                GameManager.Instance.StartGame();
                 Debug.Log($"Tiempo en crear bioma: {Time.time - time}");
             }
             catch (OperationCanceledException)
@@ -117,8 +118,7 @@ namespace GameSystem
             }
             finally
             {
-                ctsCreator?.ClearCts();
-                ctsCreator = null;
+                Extensions.ClearCts(ref ctsCreator);
             }
         }
 
@@ -298,9 +298,12 @@ namespace GameSystem
 
         public async UniTask<bool> IsAreaFree(Vector3Int centerCell, int radius, Vector3 potentialPos)
         {
+            ctsAreaFree?.Cancel();
+            ctsAreaFree = new();
+            
             foreach (Vector3 existingTreePos in treeList.Values)
             {
-                ctsCreator.Token.ThrowIfCancellationRequested();
+                ctsAreaFree.Token.ThrowIfCancellationRequested();
                 if (Vector3.Distance(potentialPos, existingTreePos) < treeSpacing)
                 {
                     return false; // Está demasiado cerca de otro árbol
@@ -310,14 +313,14 @@ namespace GameSystem
             {
                 for (int y = -radius; y <= radius; y++)
                 {
-                    ctsCreator.Token.ThrowIfCancellationRequested();
+                    ctsAreaFree.Token.ThrowIfCancellationRequested();
                     Vector3Int checkPos = new Vector3Int(centerCell.x + x, centerCell.y + y, 0);
                     if (mountainTilemap.HasTile(checkPos) || waterTilemap.HasTile(checkPos))
                     {
                         return false;
                     }
                 }
-                await UniTask.Yield(cancellationToken: ctsCreator.Token);
+                await UniTask.Yield(cancellationToken: ctsAreaFree.Token);
             }
             return true;
         }

@@ -12,12 +12,16 @@ namespace EnemySystem
     }
 
     [Serializable]
-    public struct WaveData
+    public class WaveData
     {
         public EnemyScriptable enemyScriptable;
         public int minEnemies;
         public int maxEnemies;
+        public int secondToSpawn;
+        [NonSerialized] public bool spawned;
     }
+
+
 }
 
 
