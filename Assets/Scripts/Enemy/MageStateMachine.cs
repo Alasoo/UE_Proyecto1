@@ -19,7 +19,7 @@ namespace Controller.Enemy
         {
             base.Init(enemyScriptable);
             manaSlider.gameObject.SetActive(true);
-            SwitchState(new EnemyPatrollState(this));
+            SwitchState(new EnemyFollowPlayerState(this));
         }
 
 

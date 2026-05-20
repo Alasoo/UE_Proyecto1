@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 847c149bd9d8d47faa05933785807a57, type: 3}
-  m_Name: NewArrowBullet
+  m_Name: PlayerArrowBullet
   m_EditorClassIdentifier: Assembly-CSharp::BulletSystem.ArrowBulletScriptable
   sprite: {fileID: 21300000, guid: 91fe33b06a2caf842b8f064519db6f83, type: 3}
   lifeTime: 1.5
   speed: 12
   physicalDamage: 10
   magicDamage: 0
-  bulletPrefab: {fileID: -8688168116536257001, guid: 4236fd619581f4a8da97effb8415572f, type: 3}
+  bulletPrefab: {fileID: 8308676826292283389, guid: ab3e83999a1fc4fe5a3503787cceef9a, type: 3}
   bulletCount: 15

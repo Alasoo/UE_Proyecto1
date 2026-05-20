@@ -31,27 +31,27 @@ namespace GameSystem
         private int totalRangedEnemies = 0;
         private int totalMeleeEnemies = 0;
 
-        private Dictionary<WaveData, List<EnemyStateMachine>> waves = new();
+        public Dictionary<WaveData, List<EnemyStateMachine>> waves { get; private set; } = new();
+        public Dictionary<WaveData, List<EnemyStateMachine>> activeWaves { get; private set; } = new();
+
+        public event Action<WaveData> OnDieWave;
 
 
         private void OnDestroy()
         {
             Extensions.ClearCts(ref ctsCreator);
 
+            foreach (var wave in waves)
+                foreach (var enemy in wave.Value)
+                    enemy.health.ClearSubscriptions();
+
             for (int i = 0; i < ctsFindPos.Count; i++)
             {
                 ctsFindPos[i]?.ClearCts();
             }
             ctsFindPos.Clear();
-
-            if (GameManager.Instance != null)
-                GameManager.Instance.OnUpdateTime -= OnUpdateTime;
         }
 
-        void Start()
-        {
-            GameManager.Instance.OnUpdateTime += OnUpdateTime;
-        }
 
 
         public async UniTask Init()
@@ -81,20 +81,6 @@ namespace GameSystem
         }
 
 
-        private void OnUpdateTime(int second)
-        {
-            foreach (var wave in waves)
-            {
-                if (wave.Key.secondToSpawn <= second && !wave.Key.spawned)
-                {
-                    wave.Key.spawned = true;
-                    Debug.Log($"Tengo que encender: {wave.Value.Count} enemigos");
-                    _ = SpawnWaveAsync(wave.Key, wave.Value);
-                }
-            }
-        }
-
-
 
         private async UniTask CreateNPCs()
         {
@@ -116,6 +102,7 @@ namespace GameSystem
                     newEnemy.transform.eulerAngles = new Vector3(-90f, 0, 0);
                     //newEnemy.Init(waveData.enemyScriptable);
 
+
                     if (waves.ContainsKey(waveData))
                     {
                         waves[waveData].Add(newEnemy);
@@ -124,6 +111,17 @@ namespace GameSystem
                     {
                         waves.Add(waveData, new List<EnemyStateMachine>() { newEnemy });
                     }
+
+                    newEnemy.health.OnDie += (health) =>
+                    {
+                        if (activeWaves.ContainsKey(waveData))
+                            activeWaves[waveData].Remove(newEnemy);
+                        else
+                            Debug.LogError($"No deberia estar activo este npc");
+
+                        if (activeWaves[waveData].Count == 0)
+                            OnDieWave?.Invoke(waveData);
+                    };
 
                     //si es un rango que requiere de bullet sumo enemigos de tipo rango
                     var bulletScriptable = waveData.enemyScriptable.TakeBulletScriptable();
@@ -151,7 +149,7 @@ namespace GameSystem
         }
 
 
-        private async UniTask SpawnWaveAsync(WaveData waveData, List<EnemyStateMachine> enemies)
+        public async UniTask SpawnWaveAsync(WaveData waveData, List<EnemyStateMachine> enemies)
         {
             for (int i = 0; i < enemies.Count; i++)
             {
@@ -160,7 +158,14 @@ namespace GameSystem
 
                 try
                 {
-                    await FindEnemyPosition(waveData, enemies[i], cts);
+                    bool find = await FindEnemyPosition(waveData, enemies[i], cts);
+                    if (find)
+                    {
+                        if (activeWaves.ContainsKey(waveData))
+                            activeWaves[waveData].Add(enemies[i]);
+                        else
+                            activeWaves.Add(waveData, new List<EnemyStateMachine>() { enemies[i] });
+                    }
                     await UniTask.Yield(cts.Token);
                 }
                 catch (OperationCanceledException) { }
@@ -172,7 +177,7 @@ namespace GameSystem
             }
         }
 
-        private async UniTask FindEnemyPosition(WaveData waveData, EnemyStateMachine newEnemy, CancellationTokenSource cts)
+        private async UniTask<bool> FindEnemyPosition(WaveData waveData, EnemyStateMachine newEnemy, CancellationTokenSource cts)
         {
             int maxAttempts = 20;
             bool placed = false;
@@ -219,6 +224,7 @@ namespace GameSystem
                 Debug.LogWarning($"Could not place enemy after {maxAttempts} attempts.");
             }
 
+            return placed;
         }
 
         private async UniTask FindPlayerPosition()

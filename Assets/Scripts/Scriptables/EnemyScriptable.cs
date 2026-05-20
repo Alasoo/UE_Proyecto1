@@ -13,7 +13,7 @@ namespace EnemySystem
         public Sprite sprite;
 
         [Header("STATS")]
-        public float hpMax;
+        public int hpMax;
         [Space]
         public float physicalArmor;
         public float magicalArmor;

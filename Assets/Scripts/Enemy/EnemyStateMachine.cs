@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using AttackSystem;
 using EnemySystem;
+using HealthSystem;
 using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
@@ -18,9 +19,7 @@ namespace Controller.Enemy
         [field: SerializeField] public CircleCollider2D visionTrigger { get; private set; }
 
         [field: Header("UI")]
-        [field: SerializeField] public Canvas canvas { get; private set; }
-        [SerializeField] private Slider hpSlider;
-        [SerializeField] private TMP_Text levelText;
+        [field: SerializeField] public Health health { get; private set; }
 
         [field: Header("ATTACK")]
         [field: SerializeField] public AttackController attackController { get; private set; }
@@ -41,6 +40,7 @@ namespace Controller.Enemy
             spriteRenderer.sprite = enemyScriptable.sprite;
 
             //gameObject.SetActive(true);
+            health.Init(enemyScriptable.hpMax, spriteRenderer.material);
         }
 
 

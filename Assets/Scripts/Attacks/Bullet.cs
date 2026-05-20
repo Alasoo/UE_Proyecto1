@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Threading;
+using Controller.Player;
 using Cysharp.Threading.Tasks;
 using MyExtensions;
 using UnityEngine;
@@ -97,5 +98,12 @@ namespace BulletSystem
             BulletPool.Instance.Return(this);
         }
 
+
+        protected virtual void OnTriggerEnter2D(Collider2D collision)
+        {
+            if (collision.gameObject != PlayerStateMachine.Instance.gameObject) return;
+            PlayerStateMachine.Instance.playerStats.TakeDamage(physicalDamage: bulletScriptable.physicalDamage, magicalDamage: bulletScriptable.magicDamage);
+            BulletPool.Instance.Return(this);
+        }
     }
 }

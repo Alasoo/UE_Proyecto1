@@ -13,12 +13,10 @@ namespace BulletSystem
         public int bulletCount;
 
 
-
         public override (Bullet bullet, int count) TakeBulletPrefab()
         {
             return (bulletPrefab, bulletCount);
         }
-
     }
 }
 

@@ -1,9 +1,16 @@
 using System;
+using System.Collections.Generic;
+using System.Threading;
+using Controller.Enemy;
 using Controller.Player;
+using Cysharp.Threading.Tasks;
+using EnemySystem;
 using GameSystem;
+using MyExtensions;
 using SaveSystem;
 using TMPro;
 using UnityEngine;
+
 
 public class GameManager : Singleton<GameManager>
 {
@@ -14,8 +21,9 @@ public class GameManager : Singleton<GameManager>
     private float gameTime = 0f;
     private GameInfo currentGame = null;
 
-    public event Action<int> OnUpdateTime;
     private bool startGame = false;
+
+    private List<CancellationTokenSource> spawnCts = new();
 
 
     void Start()
@@ -23,12 +31,21 @@ public class GameManager : Singleton<GameManager>
         PlayerStateMachine.Instance.playerStats.OnDie += OnPlayerDie;
         currentGame = new();
         gameTimeText.text = "00:00:00";
+
+        EnemyCreator.Instance.OnDieWave += OnDieWave;
     }
 
     void OnDestroy()
     {
+        foreach (var cts in spawnCts)
+            cts?.ClearCts();
+        spawnCts.Clear();
+
         if (PlayerStateMachine.Instance != null && PlayerStateMachine.Instance.playerStats != null)
             PlayerStateMachine.Instance.playerStats.OnDie -= OnPlayerDie;
+
+        if (EnemyCreator.Instance != null)
+            EnemyCreator.Instance.OnDieWave -= OnDieWave;
     }
 
     private void OnPlayerDie()
@@ -53,19 +70,46 @@ public class GameManager : Singleton<GameManager>
     {
         gameTime = 0f;
         startGame = true;
+
+        foreach (var wave in EnemyCreator.Instance.waves)
+        {
+            _ = SpawnEnemies(wave.Key, wave.Value);
+        }
     }
 
 
     private void Update()
     {
         if (!startGame) return;
-        int lastSec = (int)gameTime;
         gameTime += Time.deltaTime;
-        int newSecond = (int)gameTime;
-        if (lastSec != newSecond)
-            OnUpdateTime?.Invoke(newSecond);
-
         TimeSpan timeSpan = TimeSpan.FromSeconds(gameTime);
         gameTimeText.text = $"{(int)timeSpan.TotalHours}:{timeSpan.Minutes}:{timeSpan.Seconds}";
     }
+
+
+    private async UniTask SpawnEnemies(WaveData waveData, List<EnemyStateMachine> enemies)
+    {
+        CancellationTokenSource cts = new();
+        spawnCts.Add(cts);
+        try
+        {
+            await UniTask.WaitForSeconds(waveData.secondToSpawn, cancellationToken: cts.Token);
+            cts.Token.ThrowIfCancellationRequested();
+            await EnemyCreator.Instance.SpawnWaveAsync(waveData, enemies);
+        }
+        catch (OperationCanceledException) { }
+        finally
+        {
+            cts?.ClearCts();
+            spawnCts.Remove(cts);
+        }
+    }
+
+    private void OnDieWave(WaveData waveData)
+    {
+        Debug.Log($"Han muerto todos los enemigos de la wave: {waveData.enemyScriptable.name}");
+        List<EnemyStateMachine> enemiesToSpawn = EnemyCreator.Instance.waves[waveData];
+        _ = SpawnEnemies(waveData, enemiesToSpawn);
+    }
+
 }

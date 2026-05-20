@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8199627399128971148}
   - component: {fileID: 7463067160877592333}
   - component: {fileID: 1476296097994950254}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Handle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -84,7 +84,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2014119087275134218}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Handle Slide Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -122,7 +122,7 @@ GameObject:
   - component: {fileID: 2051374544138876220}
   - component: {fileID: 7856633550707081305}
   - component: {fileID: 3677749696993438293}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -195,7 +195,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5509497100285388427}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Fill Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -235,7 +235,9 @@ GameObject:
   - component: {fileID: 1800197344045154012}
   - component: {fileID: 194822705903126592}
   - component: {fileID: 5159183187852316855}
-  m_Layer: 0
+  - component: {fileID: 2950842474744607139}
+  - component: {fileID: 7339984138113940804}
+  m_Layer: 3
   m_Name: MageEnemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -345,11 +347,49 @@ MonoBehaviour:
   <body>k__BackingField: {fileID: 4496365793058274510}
   <spriteRenderer>k__BackingField: {fileID: 8621883201236204939}
   <visionTrigger>k__BackingField: {fileID: 1800197344045154012}
-  <canvas>k__BackingField: {fileID: 2396161985914745707}
-  hpSlider: {fileID: 2799060692590323129}
-  levelText: {fileID: 5755828910448220610}
+  <health>k__BackingField: {fileID: 2950842474744607139}
   <attackController>k__BackingField: {fileID: 194822705903126592}
   manaSlider: {fileID: 5967391024084464823}
+--- !u!114 &2950842474744607139
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1533667234648539525}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: acaad892527ab814ab223d82c8f18691, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HealthSystem.Health
+  hpSlider: {fileID: 2799060692590323129}
+--- !u!50 &7339984138113940804
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1533667234648539525}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &2166226440552833536
 GameObject:
   m_ObjectHideFlags: 0
@@ -361,7 +401,7 @@ GameObject:
   - component: {fileID: 4320445438218274796}
   - component: {fileID: 2396161985914745707}
   - component: {fileID: 7722290924843775552}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -446,7 +486,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8355272268210410824}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Fill Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -483,7 +523,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2119274325744300574}
   - component: {fileID: 2799060692590323129}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: hpSlider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -572,7 +612,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4012081661380150427}
   - component: {fileID: 5967391024084464823}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: manaSlider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -662,7 +702,7 @@ GameObject:
   - component: {fileID: 2091693946991769455}
   - component: {fileID: 3509644979770436550}
   - component: {fileID: 456003449848524562}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Handle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -737,7 +777,7 @@ GameObject:
   - component: {fileID: 1111010599582769339}
   - component: {fileID: 4385707348735464673}
   - component: {fileID: 3844987715650194204}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Handle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -811,7 +851,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7081769856751878755}
   - component: {fileID: 8621883201236204939}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: EnemySpriteRenderer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -903,7 +943,7 @@ GameObject:
   - component: {fileID: 5185848404365663815}
   - component: {fileID: 8320712742656004628}
   - component: {fileID: 8192158010478445529}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -978,7 +1018,7 @@ GameObject:
   - component: {fileID: 214094195877166048}
   - component: {fileID: 7893984246206959503}
   - component: {fileID: 5755828910448220610}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: LevelText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1113,7 +1153,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6401200369125816179}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Fill Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1149,7 +1189,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2424772761885107356}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Handle Slide Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1185,7 +1225,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5081004086755467335}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Handle Slide Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1225,7 +1265,7 @@ GameObject:
   - component: {fileID: 2412866294834172080}
   - component: {fileID: 364176677581347934}
   - component: {fileID: 9134344912424281653}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1328,7 +1368,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6990064194653811617}
   - component: {fileID: 3539279100371511146}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: energySlider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1418,7 +1458,7 @@ GameObject:
   - component: {fileID: 4259846360362525007}
   - component: {fileID: 935936184011858061}
   - component: {fileID: 8052062545358406872}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1495,7 +1535,7 @@ GameObject:
   - component: {fileID: 6837384061699402237}
   - component: {fileID: 6209069257408249017}
   - component: {fileID: 8439448580656751578}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1597,7 +1637,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4496365793058274510}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1632,7 +1672,7 @@ GameObject:
   - component: {fileID: 3242162447744461846}
   - component: {fileID: 5048040793056081275}
   - component: {fileID: 6207146805667133996}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: levelPlace
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1725,7 +1765,7 @@ GameObject:
   - component: {fileID: 3692964768810192922}
   - component: {fileID: 1088806184867351284}
   - component: {fileID: 7343230190743723604}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}

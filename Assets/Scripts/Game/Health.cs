@@ -4,7 +4,6 @@ using UnityEngine;
 using MyExtensions;
 using UnityEngine.UI;
 using Cysharp.Threading.Tasks;
-using Controller.Player;
 
 
 namespace HealthSystem
@@ -21,6 +20,7 @@ namespace HealthSystem
         private const string HIT_KEY = "_hit";
         private const float flashDuration = .1f;
 
+        private bool inEffect = false;
 
         void OnDestroy()
         {
@@ -37,13 +37,17 @@ namespace HealthSystem
         }
 
 
-        public virtual void TakeDamage(int damage)
+        public virtual void TakeDamage(int physicalDamage = 0, int magicalDamage = 0)
         {
-            hpSlider.value = Mathf.Max(0, hpSlider.value - damage);
+            int totalDamage = physicalDamage + magicalDamage;
+            hpSlider.value = Mathf.Max(0, hpSlider.value - totalDamage);
 
-            ctsFlash?.Cancel();
-            ctsFlash = new();
-            _ = FlashEffect();
+            if (!inEffect)
+            {
+                ctsFlash?.Cancel();
+                ctsFlash = new();
+                _ = FlashEffect();
+            }
 
             if (hpSlider.value == 0)
                 OnDie?.Invoke(this);
@@ -54,11 +58,20 @@ namespace HealthSystem
         {
             try
             {
+                inEffect = true;
                 mat.SetInt(HIT_KEY, 1);
                 await UniTask.WaitForSeconds(flashDuration, cancellationToken: ctsFlash.Token);
                 mat.SetInt(HIT_KEY, 0);
+                inEffect = false;
             }
             catch (OperationCanceledException) { }
+        }
+
+
+
+        public void ClearSubscriptions()
+        {
+            OnDie = null;
         }
 
     }

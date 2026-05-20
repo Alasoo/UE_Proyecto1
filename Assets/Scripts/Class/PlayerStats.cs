@@ -87,9 +87,16 @@ namespace Controller.Player
         }
 
 
-        public virtual void TakeDamage(int damage)
+        public virtual void TakeDamage(int physicalDamage = 0, int magicalDamage = 0)
         {
-            currentHealth = Mathf.Max(0, currentHealth - damage);
+            if (physicalDamage > 0)
+                physicalDamage = Mathf.Max(physicalDamage - armor, 0);
+            if (magicalDamage > 0)
+                magicalDamage = (int)Mathf.Max(magicalDamage - armor / 2f, 0);      //la armadura reduce la mitad del daño mágico
+
+            int totalDamage = physicalDamage + magicalDamage;
+
+            currentHealth = Mathf.Max(0, currentHealth - totalDamage);
             OnTakeDamage?.Invoke();
             if (currentHealth <= 0)
                 OnDie?.Invoke();

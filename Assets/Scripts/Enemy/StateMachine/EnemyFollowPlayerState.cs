@@ -9,10 +9,7 @@ namespace Controller.Enemy
     {
         public EnemyFollowPlayerState(EnemyStateMachine stateMachine) : base(stateMachine) { }
 
-        public override void Enter()
-        {
-            stateMachine.canvas.gameObject.SetActive(true);
-        }
+        public override void Enter(){}
 
         public override void Tick(float deltaTime)
         {
