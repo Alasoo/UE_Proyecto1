@@ -17,6 +17,7 @@ namespace Controller
         public virtual void OnDestroy() { }
         public virtual void OnTriggerEnter2D(Collider2D other) { }
         public virtual void OnTriggerExit2D(Collider2D other) { }
+        public virtual void PlayerOnRange(bool inRange) { }
 
 
         protected float GetNormalizedTime(Animator animator, string tag)

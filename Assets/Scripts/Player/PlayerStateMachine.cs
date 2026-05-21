@@ -18,6 +18,7 @@ namespace Controller.Player
         [field: SerializeField] public SpriteRenderer spriteRenderer { get; private set; }
         [field: SerializeField] public PlayerUI playerUI { get; private set; }
         [field: SerializeField] public PlayerAutoAttack playerAutoAttack { get; private set; }
+        [field: SerializeField] public CircleCollider2D circleCollider { get; private set; }
 
 
 

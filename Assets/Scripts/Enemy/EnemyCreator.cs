@@ -130,7 +130,7 @@ namespace GameSystem
                         totalRangedEnemies++;
                         var bulletData = bulletScriptable.TakeBulletPrefab();
                         if (bulletData.bullet != null && bulletData.count > 0)
-                            await bulletPool.CreateBullet(bulletData.bullet, bulletData.count, bulletScriptable);
+                            bulletPool.CreateBullet(bulletData.bullet, bulletData.count, bulletScriptable);
                     }
                     else
                         totalMeleeEnemies++;

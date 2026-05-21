@@ -30,7 +30,7 @@ namespace Controller
             currentState?.FixedTick(Time.fixedDeltaTime);
         }
 
-        private void OnDestroy()
+        protected virtual void OnDestroy()
         {
             currentState?.OnDestroy();
         }
@@ -44,6 +44,13 @@ namespace Controller
         {
             currentState?.OnTriggerExit2D(collision);
         }
+
+        public void PlayerOnRange(bool inRange)
+        {
+            currentState?.PlayerOnRange(inRange);
+        }
+
+
 
     }
 }

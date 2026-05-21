@@ -34,15 +34,26 @@ namespace Controller.Enemy
 
         public override void Tick(float deltaTime)
         {
+            /*
             if (Vector3.Distance(PlayerStateMachine.Instance.transform.position, stateMachine.transform.position) > stateMachine.enemyScriptable.rangeAttack)
             {
                 stateMachine.SwitchState(new EnemyFollowPlayerState(stateMachine));
             }
+            */
         }
+
+
 
         public override void LateTick(float deltaTime)
         {
             RotateBodyTowardsPlayer(deltaTime);
+        }
+
+
+        public override void PlayerOnRange(bool inRange)
+        {
+            if (!inRange)
+                stateMachine.SwitchState(new EnemyFollowPlayerState(stateMachine));
         }
 
         public override void Exit()

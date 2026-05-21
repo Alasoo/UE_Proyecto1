@@ -54,6 +54,12 @@ namespace Controller.Enemy
             stateMachine.SwitchState(new EnemyFollowPlayerState(stateMachine));
         }
 
+        public override void PlayerOnRange(bool inRange)
+        {
+            if (!inRange)
+                stateMachine.SwitchState(new EnemyFollowPlayerState(stateMachine));
+        }
+
 
         private async UniTask SetNewRandomDestination()
         {

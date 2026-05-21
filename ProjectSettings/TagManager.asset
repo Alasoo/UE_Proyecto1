@@ -12,11 +12,11 @@ TagManager:
   - Water
   - UI
   - PlayerAreaAttack
-  - Bullet
+  - EnemyBullet
   - Object
   - Player
-  - 
-  - 
+  - PlayerBullet
+  - EnemyAreaAttack
   - 
   - 
   - 

@@ -9,9 +9,10 @@ namespace BulletSystem
     {
         protected override void OnTriggerEnter2D(Collider2D collision)
         {
-            Debug.Log($"collision: {collision.transform.name}");
+            if (hasHit || IsReleased) return;
             if (!collision.TryGetComponent(out EnemyStateMachine enemy)) return;
 
+            hasHit = true;
             enemy.health.TakeDamage(physicalDamage: bulletScriptable.physicalDamage, magicalDamage: bulletScriptable.magicDamage);
             BulletPool.Instance.Return(this);
         }

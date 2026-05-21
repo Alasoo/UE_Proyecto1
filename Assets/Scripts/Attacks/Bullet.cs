@@ -19,6 +19,8 @@ namespace BulletSystem
         protected Vector3 moveDirection;
 
         private CancellationTokenSource ctsMove;
+        protected bool hasHit = false;
+        public bool IsReleased { get; private set; } = false;
 
 
 
@@ -30,8 +32,12 @@ namespace BulletSystem
 
         public virtual void OnRelease()
         {
+            if (IsReleased) return;
+
+            IsReleased = true;
             ctsMove?.ClearCts();
             ctsMove = null;
+            hasHit = false;
 
             if (trail != null) trail.Clear();
 
@@ -52,6 +58,8 @@ namespace BulletSystem
             transform.localScale = Vector3.one;
             gameObject.SetActive(true);
             moveDirection = direction.normalized;
+            IsReleased = false;
+            hasHit = false;
 
             ctsMove?.Cancel();
             ctsMove = new();
@@ -79,14 +87,13 @@ namespace BulletSystem
 
         private async UniTaskVoid MoveLoop()
         {
+            float angle = Mathf.Atan2(moveDirection.y, moveDirection.x) * Mathf.Rad2Deg;
+            transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+
             while (!ctsMove.Token.IsCancellationRequested)
             {
-                transform.Translate(moveDirection * bulletScriptable.speed * Time.deltaTime, Space.World);
-
-                float angle = Mathf.Atan2(moveDirection.y, moveDirection.x) * Mathf.Rad2Deg;
-                transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-
                 await UniTask.Yield(PlayerLoopTiming.Update, ctsMove.Token);
+                transform.Translate(moveDirection * bulletScriptable.speed * Time.deltaTime, Space.World);
             }
         }
 
@@ -106,6 +113,9 @@ namespace BulletSystem
                 Debug.Log($"Bala colisiona con: {collision.transform.name}");
             }
             if (collision.gameObject != PlayerStateMachine.Instance.gameObject) return;
+            if (hasHit || IsReleased) return;
+
+            hasHit = true;
             PlayerStateMachine.Instance.playerStats.TakeDamage(physicalDamage: bulletScriptable.physicalDamage, magicalDamage: bulletScriptable.magicDamage);
             BulletPool.Instance.Return(this);
         }

@@ -10,17 +10,19 @@ namespace BulletSystem
 {
     public class BulletPool : Singleton<BulletPool>
     {
-        private Dictionary<Type, List<Bullet>> pools = new();
+        //private Dictionary<Type, List<Bullet>> pools = new();
+        private readonly Dictionary<Type, Stack<Bullet>> pools = new();
 
-        private CancellationTokenSource ctsCreator;
+        //private CancellationTokenSource ctsCreator;
 
 
         private void OnDestroy()
         {
-            ctsCreator?.ClearCts();
-            ctsCreator = null;
+            //ctsCreator?.ClearCts();
+            //ctsCreator = null;
         }
 
+        /*
         public async UniTask CreateBullet<T>(T prefab, int count, BulletScriptable bulletScriptable) where T : Bullet
         {
             Type type = prefab.GetType();
@@ -58,11 +60,12 @@ namespace BulletSystem
             }
         }
 
-        private bool taked = false;
+
+             private bool taked = false;
 
         public T Get<T>(T prefab, Vector3 direction, Vector3 pos, BulletScriptable bulletScriptable) where T : Bullet
         {
-            
+
             Type type = prefab.GetType();
             if (pools.TryGetValue(type, out var list) && list.Count > 0)
             {
@@ -108,9 +111,99 @@ namespace BulletSystem
         }
 
 
+        */
+
+
+        private bool taked = false;
+        int contador = 0;
+
+
+        public void CreateBullet(Bullet prefab, int count, BulletScriptable bulletScriptable)
+        {
+            Type type = prefab.GetType();
+
+            if (!pools.TryGetValue(type, out Stack<Bullet> pool))
+            {
+                pool = new Stack<Bullet>(count);
+                pools[type] = pool;
+            }
+
+            for (int i = pool.Count; i < count; i++)
+            {
+                Bullet bullet = Instantiate(prefab, transform);
+                bullet.Init(bulletScriptable);
+                bullet.OnRelease();
+                pool.Push(bullet);
+            }
+        }
+
+        public T Get<T>(T prefab, Vector3 direction, Vector3 position, BulletScriptable bulletScriptable) where T : Bullet
+        {
+            Type type = prefab.GetType();
+
+            if (!pools.TryGetValue(type, out Stack<Bullet> pool))
+            {
+                pool = new Stack<Bullet>();
+                pools[type] = pool;
+            }
+
+            Bullet bullet;
+
+            if (pool.Count > 0)
+            {
+                bullet = pool.Pop();
+            }
+            else
+            {
+                bullet = Instantiate(prefab, transform);
+                bullet.Init(bulletScriptable);
+            }
+
+            bullet.OnGet(direction, position);
+
+            if (!taked)
+            {
+                contador++;
+                if (contador == 15)
+                {
+                    taked = true;
+                    bullet.transform.name = "Bullet1";
+                }
+            }
+            return (T)bullet;
+        }
+
+        public void Return(Bullet bullet)
+        {
+            if (bullet.IsReleased) return;
+
+            Type type = bullet.GetType();
+
+            if (!pools.TryGetValue(type, out Stack<Bullet> pool))
+            {
+                pool = new Stack<Bullet>();
+                pools[type] = pool;
+            }
+
+            bullet.OnRelease();
+            pool.Push(bullet);
+        }
+
+        public void ClearBullets()
+        {
+            for (int i = transform.childCount - 1; i >= 0; i--)
+            {
+                DestroyImmediate(transform.GetChild(i).gameObject);
+            }
+
+            pools.Clear();
+        }
+
+
+
+
 
 
     }
 }
-
 

@@ -34,6 +34,8 @@ namespace Controller.Player
         public event Action OnTakeDamage;
         public event Action OnDie;
 
+        private bool isDie = false;
+
 
 
         public void AddProjectiles(int amount)
@@ -98,8 +100,11 @@ namespace Controller.Player
 
             currentHealth = Mathf.Max(0, currentHealth - totalDamage);
             OnTakeDamage?.Invoke();
-            if (currentHealth <= 0)
+            if (currentHealth <= 0 && !isDie)
+            {
+                isDie = true;
                 OnDie?.Invoke();
+            }
         }
 
         #region GETS

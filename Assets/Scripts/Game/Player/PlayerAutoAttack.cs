@@ -10,11 +10,16 @@ using System.Collections.Generic;
 
 public class PlayerAutoAttack : MonoBehaviour
 {
-
     private CancellationTokenSource ctsAutoAttack;
     private PlayerStats playerStats;
 
     [SerializeField] private BulletScriptable bulletScriptable;
+    [SerializeField] private bool drawBulletGizmos = true;
+
+    private Vector3 lastBulletStartPos;
+    private Vector3 lastBulletTargetPos;
+    private bool hasBulletGizmo;
+
 
 
     private List<GameObject> enemiesOnRange = new();
@@ -28,7 +33,7 @@ public class PlayerAutoAttack : MonoBehaviour
 
         playerStats.OnDie += OnDie;
         var bulletData = bulletScriptable.TakeBulletPrefab();
-        //_ = BulletPool.Instance.CreateBullet(bulletData.bullet, bulletData.count, bulletScriptable);
+        BulletPool.Instance.CreateBullet(bulletData.bullet, bulletData.count, bulletScriptable);
 
         ctsAutoAttack?.Cancel();
         ctsAutoAttack = new();
@@ -61,7 +66,13 @@ public class PlayerAutoAttack : MonoBehaviour
                 var bulletData = bulletScriptable.TakeBulletPrefab();
                 Transform enemy = await TakeCloseEnemy();
                 Vector3 directionToEnemy = (enemy.position - transform.position).normalized;
-                Vector3 spawnPosition = transform.position + (directionToEnemy * 0.5f);
+                float spawnOffset = PlayerStateMachine.Instance.circleCollider.radius + 0.15f;
+                Vector3 spawnPosition = transform.position + (directionToEnemy * spawnOffset);
+                
+                lastBulletStartPos = spawnPosition;
+                lastBulletTargetPos = enemy.position;
+                hasBulletGizmo = true;
+
                 BulletPool.Instance.Get(bulletData.bullet, directionToEnemy, spawnPosition, bulletScriptable);
 
                 await UniTask.WaitForSeconds(playerStats.GetSpeedAttack, cancellationToken: ctsAutoAttack.Token);
@@ -114,6 +125,21 @@ public class PlayerAutoAttack : MonoBehaviour
         enemiesOnRange.Remove(collision.gameObject);
     }
 
+
+
+    private void OnDrawGizmos()
+    {
+        if (!drawBulletGizmos || !hasBulletGizmo) return;
+
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(lastBulletStartPos, 0.12f);
+
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(lastBulletTargetPos, 0.18f);
+
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawLine(lastBulletStartPos, lastBulletTargetPos);
+    }
 
 
 }
