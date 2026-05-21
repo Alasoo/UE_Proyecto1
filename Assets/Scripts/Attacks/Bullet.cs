@@ -101,6 +101,10 @@ namespace BulletSystem
 
         protected virtual void OnTriggerEnter2D(Collider2D collision)
         {
+            if (transform.name == "Bullet1")
+            {
+                Debug.Log($"Bala colisiona con: {collision.transform.name}");
+            }
             if (collision.gameObject != PlayerStateMachine.Instance.gameObject) return;
             PlayerStateMachine.Instance.playerStats.TakeDamage(physicalDamage: bulletScriptable.physicalDamage, magicalDamage: bulletScriptable.magicDamage);
             BulletPool.Instance.Return(this);

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3275070172808105212}
   - component: {fileID: 2315925419672900089}
   - component: {fileID: -8688168116536257001}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: ArrowBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -96,7 +96,7 @@ GameObject:
   - component: {fileID: 5715758656508061571}
   - component: {fileID: 7157820146521012973}
   - component: {fileID: 264541328393704422}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Circle
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -58,10 +58,11 @@ namespace BulletSystem
             }
         }
 
-
+        private bool taked = false;
 
         public T Get<T>(T prefab, Vector3 direction, Vector3 pos, BulletScriptable bulletScriptable) where T : Bullet
         {
+            
             Type type = prefab.GetType();
             if (pools.TryGetValue(type, out var list) && list.Count > 0)
             {
@@ -70,6 +71,11 @@ namespace BulletSystem
                 list.RemoveAt(lastIndex);
 
                 bullet.OnGet(direction, pos);
+                if (!taked)
+                {
+                    taked = true;
+                    bullet.name = "Bullet1";
+                }
                 return (T)bullet;
             }
 

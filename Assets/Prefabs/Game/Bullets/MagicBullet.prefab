@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6710804447552658571}
   - component: {fileID: 2822324846050754895}
   - component: {fileID: 5793275415114997576}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: MagicBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -84,6 +84,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BulletSystem.MagicBullet
   spriteRenderer: {fileID: 6717124958599866412}
   trail: {fileID: 3040078934778691640}
+  scaleBulletByTime: 0
 --- !u!1 &3710894978369787723
 GameObject:
   m_ObjectHideFlags: 0
@@ -95,7 +96,7 @@ GameObject:
   - component: {fileID: 2797353917228494236}
   - component: {fileID: 6717124958599866412}
   - component: {fileID: 3040078934778691640}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Circle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
