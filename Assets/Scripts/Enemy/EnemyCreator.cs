@@ -9,6 +9,7 @@ using Controller.Player;
 using Controller.Enemy;
 using BulletSystem;
 using UnityEngine.AI;
+using RewardSystem;
 
 
 namespace GameSystem
@@ -19,7 +20,6 @@ namespace GameSystem
         [SerializeField] private MapCreator mapCreator;
         [Header("PLAYER")]
         [SerializeField] private PlayerStateMachine playerStateMachine;
-        //[SerializeField] private float safeDistanceToEnemies = 15f; // Distancia minima a los enemigos
 
         [Header("ENEMIES")]
         [SerializeField] private List<WaveScriptable> waveScriptables = new();
@@ -100,7 +100,6 @@ namespace GameSystem
                     newEnemy.spriteRenderer.sprite = waveData.enemyScriptable.sprite;
                     newEnemy.transform.name = $"Enemy{wave.waveData.IndexOf(waveData)}_{i}/{amountToSpawn - 1}";
                     newEnemy.transform.eulerAngles = new Vector3(-90f, 0, 0);
-                    //newEnemy.Init(waveData.enemyScriptable);
 
 
                     if (waves.ContainsKey(waveData))
@@ -114,13 +113,18 @@ namespace GameSystem
 
                     newEnemy.health.OnDie += (health) =>
                     {
+                        newEnemy.gameObject.SetActive(false);
+
                         if (activeWaves.ContainsKey(waveData))
                             activeWaves[waveData].Remove(newEnemy);
                         else
                             Debug.LogError($"No deberia estar activo este npc");
 
                         if (activeWaves[waveData].Count == 0)
+                        {
+                            RewardPopup.Instance.Open(PlayerStateMachine.Instance.playerStats);
                             OnDieWave?.Invoke(waveData);
+                        }
                     };
 
                     //si es un rango que requiere de bullet sumo enemigos de tipo rango
@@ -179,52 +183,70 @@ namespace GameSystem
 
         private async UniTask<bool> FindEnemyPosition(WaveData waveData, EnemyStateMachine newEnemy, CancellationTokenSource cts)
         {
-            int maxAttempts = 20;
-            bool placed = false;
-            int attempts = 0;
+            int attemptsPerDistance = 10;
+            int maxDistanceSteps = 6;
+
+            float startOffset = 2f;
+            float offsetIncrease = 2f;
+            float navMeshSearchRadius = 2f;
+
             float enemyRadius = newEnemy.spriteRenderer != null ? newEnemy.spriteRenderer.sprite.bounds.extents.x : 0.5f;
             int cellRadius = Mathf.CeilToInt(enemyRadius);
 
-            while (!placed && attempts < maxAttempts)
+            for (int distanceStep = 0; distanceStep < maxDistanceSteps; distanceStep++)
             {
-                cts.Token.ThrowIfCancellationRequested();
+                float currentOffset = startOffset + offsetIncrease * distanceStep;
 
-                Vector3 randomWorldPos = GetRandomOffCameraPosition(2f);
-                Vector3Int randomCell = mapCreator.groundTilemap.WorldToCell(randomWorldPos);
-
-                randomCell.x = Mathf.Clamp(randomCell.x, mapCreator.margin, mapCreator.currentBiome.size.x - mapCreator.margin);
-                randomCell.y = Mathf.Clamp(randomCell.y, mapCreator.margin, mapCreator.currentBiome.size.y - mapCreator.margin);
-
-                Vector3 potentialWorldPos = mapCreator.groundTilemap.GetCellCenterWorld(randomCell);
-
-                if (await mapCreator.IsAreaFree(randomCell, cellRadius, potentialWorldPos))
+                for (int attempt = 0; attempt < attemptsPerDistance; attempt++)
                 {
                     cts.Token.ThrowIfCancellationRequested();
 
-                    if (NavMesh.SamplePosition(potentialWorldPos, out NavMeshHit hit, 2.0f, NavMesh.AllAreas))
+                    Vector3 randomWorldPos = GetRandomOffCameraPosition(currentOffset);
+                    Vector3Int randomCell = mapCreator.groundTilemap.WorldToCell(randomWorldPos);
+
+                    if (!IsCellInsideSpawnBounds(randomCell))
                     {
-                        potentialWorldPos = hit.position;
-
-                        newEnemy.transform.position = potentialWorldPos;
-                        newEnemy.gameObject.SetActive(true);
-
-                        newEnemy.agent.enabled = true;
-                        newEnemy.agent.Warp(potentialWorldPos);
-
-                        placed = true;
-                        newEnemy.Init(waveData.enemyScriptable);
+                        await UniTask.Yield(cts.Token);
+                        continue;
                     }
+
+                    Vector3 potentialWorldPos = mapCreator.groundTilemap.GetCellCenterWorld(randomCell);
+
+                    if (!await mapCreator.IsAreaFree(randomCell, cellRadius, potentialWorldPos))
+                    {
+                        await UniTask.Yield(cts.Token);
+                        continue;
+                    }
+
+                    if (!NavMesh.SamplePosition(potentialWorldPos, out NavMeshHit hit, navMeshSearchRadius, NavMesh.AllAreas))
+                    {
+                        await UniTask.Yield(cts.Token);
+                        continue;
+                    }
+
+                    potentialWorldPos = hit.position;
+
+                    newEnemy.transform.position = potentialWorldPos;
+                    newEnemy.gameObject.SetActive(true);
+
+                    newEnemy.agent.enabled = true;
+                    newEnemy.agent.Warp(potentialWorldPos);
+
+                    newEnemy.Init(waveData.enemyScriptable);
+                    return true;
                 }
-
-                attempts++;
             }
 
-            if (!placed)
-            {
-                Debug.LogWarning($"Could not place enemy after {maxAttempts} attempts.");
-            }
+            Debug.LogWarning($"Could not place enemy after {attemptsPerDistance * maxDistanceSteps} attempts.");
+            return false;
+        }
 
-            return placed;
+        private bool IsCellInsideSpawnBounds(Vector3Int cell)
+        {
+            return cell.x >= mapCreator.margin &&
+                   cell.x < mapCreator.currentBiome.size.x - mapCreator.margin &&
+                   cell.y >= mapCreator.margin &&
+                   cell.y < mapCreator.currentBiome.size.y - mapCreator.margin;
         }
 
         private async UniTask FindPlayerPosition()

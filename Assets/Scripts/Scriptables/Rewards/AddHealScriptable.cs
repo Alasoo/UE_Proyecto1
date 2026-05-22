@@ -11,13 +11,13 @@ public class AddHealScriptable : RewardScriptable
 
     public override void SelectReward(PlayerStats player)
     {
-        player.AddHealth(maxHealToAdd);
+        player.AddMaxHealth(maxHealToAdd);
     }
 
         public override (string lastValue, string newValue) ShowReward(PlayerStats player)
     {
-        string oldVal = player.currentHealth.ToString();
-        string newVal = (player.currentHealth + maxHealToAdd).ToString();
+        string oldVal = player.maxHealth.ToString();
+        string newVal = (player.maxHealth + maxHealToAdd).ToString();
         return (oldVal, newVal);
     }
 }

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Controller.Player;
 using MyUI.Panels;
+using RewardSystem;
 using UnityEngine;
 
 namespace MyUI
@@ -113,6 +114,7 @@ namespace MyUI
 
         private void OnCancel()
         {
+            if (RewardPopup.Instance != null && RewardPopup.Instance.isOpen) return;
             if (opened)
                 GoBack();
             else

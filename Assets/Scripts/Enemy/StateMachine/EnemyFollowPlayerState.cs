@@ -14,12 +14,6 @@ namespace Controller.Enemy
         public override void Tick(float deltaTime)
         {
             stateMachine.agent.SetDestination(PlayerStateMachine.Instance.transform.position);
-            /*
-            if (Vector3.Distance(PlayerStateMachine.Instance.transform.position, stateMachine.transform.position) <= stateMachine.enemyScriptable.rangeAttack)
-            {
-                stateMachine.SwitchState(new EnemyAttackState(stateMachine));
-            }
-            */
         }
 
         public override void PlayerOnRange(bool inRange)
@@ -35,6 +29,7 @@ namespace Controller.Enemy
 
         public override void Exit()
         {
+            if (!stateMachine.agent.enabled) return;
             stateMachine.agent.ResetPath();
         }
 

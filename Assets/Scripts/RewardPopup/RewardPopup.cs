@@ -16,6 +16,8 @@ namespace RewardSystem
 
 
 
+        public bool isOpen { get; private set; } = false;
+
 
         protected override void Awake()
         {
@@ -37,6 +39,10 @@ namespace RewardSystem
 
         public void Open(PlayerStats playerStats)
         {
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+
+            isOpen = true;
             Time.timeScale = 0;
             foreach (var rewardSlot in rewardSlots)
             {
@@ -51,10 +57,14 @@ namespace RewardSystem
 
         public void Close()
         {
+            isOpen = false;
             cg.alpha = 0;
             cg.interactable = false;
             cg.blocksRaycasts = false;
             Time.timeScale = 1;
+
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
         }
 
 

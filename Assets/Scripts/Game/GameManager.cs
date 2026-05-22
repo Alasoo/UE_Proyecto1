@@ -107,7 +107,6 @@ public class GameManager : Singleton<GameManager>
 
     private void OnDieWave(WaveData waveData)
     {
-        Debug.Log($"Han muerto todos los enemigos de la wave: {waveData.enemyScriptable.name}");
         List<EnemyStateMachine> enemiesToSpawn = EnemyCreator.Instance.waves[waveData];
         _ = SpawnEnemies(waveData, enemiesToSpawn);
     }

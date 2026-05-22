@@ -37,6 +37,7 @@ namespace HealthSystem
             this.mat = mat;
 
             playerStats.OnTakeDamage += OnTakeDamage;
+            playerStats.OnAddHealth += OnAddHealth;
             playerStats.OnAddExperience += OnAddExperience;
             playerStats.OnAddLvl += OnAddLvl;
 
@@ -52,11 +53,19 @@ namespace HealthSystem
         void OnDestroy()
         {
             playerStats.OnTakeDamage -= OnTakeDamage;
+            playerStats.OnAddHealth -= OnAddHealth;
             playerStats.OnAddExperience -= OnAddExperience;
             playerStats.OnAddLvl -= OnAddLvl;
             Extensions.ClearCts(ref ctsFlash);
         }
 
+
+        private void OnAddHealth()
+        {
+            hpSlider.maxValue = playerStats.maxHealth;
+            hpSlider.value = playerStats.currentHealth;
+            hpText.text = hpSlider.value + "/" + hpSlider.maxValue;
+        }
 
         private void OnTakeDamage()
         {

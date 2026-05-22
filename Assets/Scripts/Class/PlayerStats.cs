@@ -4,23 +4,23 @@ using UnityEngine;
 
 namespace Controller.Player
 {
-    [Serializable]
+    [Serializable]  //para poderlo visualizar en modo debug
     public class PlayerStats
     {
-        public int currentDamage { get; private set; } = 20;
-        public int currentHealth { get; private set; } = 100;
+        public int currentDamage { get; private set; } = 10;
+        public int currentHealth { get; private set; } = 200;
         public int maxHealth { get; private set; } = 100;
         public int currentProjectiles { get; private set; } = 1;
-        private float movementSpeedBase = 3f;
+        private float movementSpeedBase = 3.5f;
         public int movementSpeedPercent { get; private set; } = 0;
-        public int lifeStealPercent { get; private set; } = 0;
+        public float lifeStealPercent { get; private set; } = 0;
 
         public int armor { get; private set; } = 0;
         public float luckBase { get; private set; } = 10f;                //con esto hago que ignore el damage de los enemigos  
         public int luckPercent { get; private set; } = 0;
         private float criticalBase = 5;
         public int criticalPercent { get; private set; } = 0;
-        private float attackSpeedBase = 2f;
+        private float attackSpeedBase = 1.5f;
         public int attackSpeedPercent { get; private set; } = 0;
 
 
@@ -32,6 +32,7 @@ namespace Controller.Player
         public event Action OnAddExperience;
         public event Action OnAddLvl;
         public event Action OnTakeDamage;
+        public event Action OnAddHealth;
         public event Action OnDie;
 
         private bool isDie = false;
@@ -44,14 +45,20 @@ namespace Controller.Player
         }
         public void AddHealth(int amount)
         {
+            currentHealth += amount;
+            OnAddHealth?.Invoke();
+        }
+        public void AddMaxHealth(int amount)
+        {
             maxHealth += amount;
             currentHealth += amount;
+            OnAddHealth?.Invoke();
         }
         public void AddMovementSpeed(int amount)
         {
             movementSpeedPercent += amount;
         }
-        public void AddLifeSteal(int amount)
+        public void AddLifeSteal(float amount)
         {
             lifeStealPercent += amount;
         }
@@ -91,6 +98,10 @@ namespace Controller.Player
 
         public virtual void TakeDamage(int physicalDamage = 0, int magicalDamage = 0)
         {
+            bool evade = UnityEngine.Random.Range(0, 100) < GetLuck;
+            if (evade) return;
+
+
             if (physicalDamage > 0)
                 physicalDamage = Mathf.Max(physicalDamage - armor, 0);
             if (magicalDamage > 0)
@@ -108,10 +119,10 @@ namespace Controller.Player
         }
 
         #region GETS
-        public float GetMovementSpeed => movementSpeedBase + movementSpeedBase * movementSpeedPercent;
-        public float GetLuck => luckBase + luckBase * luckPercent;
-        public float GetSpeedAttack => attackSpeedBase + attackSpeedBase * attackSpeedPercent;
-        public float GetCritical => criticalBase + criticalBase * criticalPercent;
+        public float GetMovementSpeed => movementSpeedBase + movementSpeedBase * movementSpeedPercent / 100f;
+        public float GetLuck => luckBase + luckBase * luckPercent / 100f;
+        public float GetSpeedAttack => Mathf.Max(attackSpeedBase - attackSpeedBase * attackSpeedPercent / 100f, 0.1f);  //minimo de velocidad de ataque 0.1f
+        public float GetCritical => criticalBase + criticalBase * criticalPercent / 100f;
         #endregion
 
 

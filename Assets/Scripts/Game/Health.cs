@@ -4,6 +4,7 @@ using UnityEngine;
 using MyExtensions;
 using UnityEngine.UI;
 using Cysharp.Threading.Tasks;
+using Controller.Player;
 
 
 namespace HealthSystem
@@ -21,6 +22,7 @@ namespace HealthSystem
         private const float flashDuration = .1f;
 
         private bool inEffect = false;
+        private bool isDie = false;
 
         void OnDestroy()
         {
@@ -34,12 +36,25 @@ namespace HealthSystem
 
             hpSlider.maxValue = maxHp;
             hpSlider.value = maxHp;
+            isDie = false;
         }
 
 
         public virtual void TakeDamage(int physicalDamage = 0, int magicalDamage = 0)
         {
             int totalDamage = physicalDamage + magicalDamage;
+
+            PlayerStats playerStats = PlayerStateMachine.Instance.playerStats;
+            bool isCritical = UnityEngine.Random.Range(0, 100) < playerStats.GetCritical;
+            if (isCritical)
+            {
+                totalDamage *= 2;
+            }
+
+            float hpToPlayer = playerStats.lifeStealPercent * totalDamage / 100f;
+            Debug.Log($"Debo curar al player: {hpToPlayer}, {playerStats.lifeStealPercent} * {totalDamage} / 100f");
+            playerStats.AddHealth(Mathf.CeilToInt(hpToPlayer));
+
             hpSlider.value = Mathf.Max(0, hpSlider.value - totalDamage);
 
             if (!inEffect)
@@ -50,7 +65,10 @@ namespace HealthSystem
             }
 
             if (hpSlider.value == 0)
+            {
+                isDie = true;
                 OnDie?.Invoke(this);
+            }
         }
 
 

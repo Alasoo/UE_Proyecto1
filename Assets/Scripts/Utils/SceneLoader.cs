@@ -122,7 +122,6 @@ namespace GameSystem
             ctsFade = new CancellationTokenSource();
             try
             {
-                Debug.Log($"Apagando Canvas");
                 await cg.LerpAlpha(0f, duration, ctsFade.Token);
                 cg.interactable = false;
                 cg.blocksRaycasts = false;

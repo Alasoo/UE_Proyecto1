@@ -13,7 +13,7 @@ namespace BulletSystem
             if (!collision.TryGetComponent(out EnemyStateMachine enemy)) return;
 
             hasHit = true;
-            enemy.health.TakeDamage(physicalDamage: bulletScriptable.physicalDamage, magicalDamage: bulletScriptable.magicDamage);
+            enemy.health.TakeDamage(physicalDamage: bulletScriptable.physicalDamage + PlayerStateMachine.Instance.playerStats.currentDamage, magicalDamage: bulletScriptable.magicDamage);
             BulletPool.Instance.Return(this);
         }
     }

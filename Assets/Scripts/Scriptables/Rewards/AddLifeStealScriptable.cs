@@ -7,7 +7,7 @@ using Controller.Player;
 [CreateAssetMenu(fileName = "NuevaRecompensa", menuName = "ScriptableObjects/Reward/LifeSteal", order = 4)]
 public class AddLifeStealScriptable : RewardScriptable
 {
-    public int lifeStealPercentToAdd = 5;
+    public float lifeStealPercentToAdd = 5f;
 
     public override void SelectReward(PlayerStats player)
     {

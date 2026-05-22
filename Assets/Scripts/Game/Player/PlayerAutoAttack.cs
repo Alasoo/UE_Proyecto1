@@ -14,11 +14,7 @@ public class PlayerAutoAttack : MonoBehaviour
     private PlayerStats playerStats;
 
     [SerializeField] private BulletScriptable bulletScriptable;
-    [SerializeField] private bool drawBulletGizmos = true;
 
-    private Vector3 lastBulletStartPos;
-    private Vector3 lastBulletTargetPos;
-    private bool hasBulletGizmo;
 
 
 
@@ -62,19 +58,30 @@ public class PlayerAutoAttack : MonoBehaviour
             while (attack)
             {
                 ctsAutoAttack.Token.ThrowIfCancellationRequested();
+                List<GameObject> enemysTarget = new();
                 await UniTask.WaitUntil(() => enemiesOnRange.Count > 0);
-                var bulletData = bulletScriptable.TakeBulletPrefab();
-                Transform enemy = await TakeCloseEnemy();
-                Vector3 directionToEnemy = (enemy.position - transform.position).normalized;
-                float spawnOffset = PlayerStateMachine.Instance.circleCollider.radius + 0.15f;
-                Vector3 spawnPosition = transform.position + (directionToEnemy * spawnOffset);
-                
-                lastBulletStartPos = spawnPosition;
-                lastBulletTargetPos = enemy.position;
-                hasBulletGizmo = true;
+                for (int i = 0; i < playerStats.currentProjectiles; i++)
+                {
+                    var bulletData = bulletScriptable.TakeBulletPrefab();
+                    Transform enemy = await TakeCloseEnemy(enemysTarget);
+                    if (enemy == null) continue;
+                    if (!enemy.gameObject.activeSelf)   //por si pasado esos frames se ha muerto buscamos de nuevo
+                    {
+                        Debug.Log($"enemigo apagado");
+                        continue;
+                    }
+                    enemysTarget.Add(enemy.gameObject);
+    
 
-                BulletPool.Instance.Get(bulletData.bullet, directionToEnemy, spawnPosition, bulletScriptable);
+                    Vector3 directionToEnemy = (enemy.position - transform.position).normalized;
+                    float spawnOffset = PlayerStateMachine.Instance.circleCollider.radius + 0.15f;
+                    Vector3 spawnPosition = transform.position + (directionToEnemy * spawnOffset);
 
+                    BulletPool.Instance.Get(bulletData.bullet, directionToEnemy, spawnPosition, bulletScriptable);
+                    await UniTask.Yield(cancellationToken: ctsAutoAttack.Token);
+                }
+
+                Debug.Log($"Velocidad de ataque: {playerStats.GetSpeedAttack}");
                 await UniTask.WaitForSeconds(playerStats.GetSpeedAttack, cancellationToken: ctsAutoAttack.Token);
             }
         }
@@ -86,10 +93,9 @@ public class PlayerAutoAttack : MonoBehaviour
         {
             Debug.LogError($"Error: {e}");
         }
-
     }
 
-    private async UniTask<Transform> TakeCloseEnemy()
+    private async UniTask<Transform> TakeCloseEnemy(List<GameObject> enemiesCurrentTarget)
     {
         List<GameObject> cloneList = new(enemiesOnRange);   //hago una clonacion por si se modificara mientras la leo
         if (cloneList.Count == 0) return null;
@@ -97,17 +103,23 @@ public class PlayerAutoAttack : MonoBehaviour
         Transform closeEnemy = null;
         float currentDistance = 1000f;
 
-
         for (int i = 0; i < cloneList.Count; i++)
         {
-            Vector3 direction = transform.position - cloneList[i].transform.position;
+            GameObject candidate = cloneList[i];
+
+            if (candidate == null) continue;
+            if (!candidate.activeSelf) continue;
+            if (enemiesCurrentTarget.Contains(candidate)) continue;
+
+            Vector3 direction = transform.position - candidate.transform.position;
             float distance = direction.sqrMagnitude;
 
             if (distance < currentDistance)
             {
                 currentDistance = distance;
-                closeEnemy = cloneList[i].transform;
+                closeEnemy = candidate.transform;
             }
+
             await UniTask.Yield(ctsAutoAttack.Token);
         }
 
@@ -126,20 +138,6 @@ public class PlayerAutoAttack : MonoBehaviour
     }
 
 
-
-    private void OnDrawGizmos()
-    {
-        if (!drawBulletGizmos || !hasBulletGizmo) return;
-
-        Gizmos.color = Color.green;
-        Gizmos.DrawWireSphere(lastBulletStartPos, 0.12f);
-
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(lastBulletTargetPos, 0.18f);
-
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawLine(lastBulletStartPos, lastBulletTargetPos);
-    }
 
 
 }
