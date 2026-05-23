@@ -54,3 +54,7 @@ crashlytics-build.properties
 # --- Tu carpeta específica de Backend ---
 API_BBDD/node_modules/
 API_BBDD/.env
+
+# --- Ignorar la carpeta de Builds específicas ---
+BuildWindows/
+BuildMac/
