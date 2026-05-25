@@ -6,6 +6,7 @@ using MyExtensions;
 using Cysharp.Threading.Tasks;
 using System;
 using Controller.Player;
+using HealthSystem;
 
 
 namespace Controller.Enemy
@@ -30,6 +31,7 @@ namespace Controller.Enemy
             ctsAttack?.Cancel();
             ctsAttack = new();
             _ = Attack();
+            stateMachine.health.OnDie += OnDie;
         }
 
         public override void Tick(float deltaTime)
@@ -58,6 +60,12 @@ namespace Controller.Enemy
         public override void Exit()
         {
             Extensions.ClearCts(ref ctsAttack);
+            stateMachine.health.OnDie -= OnDie;
+        }
+
+        private void OnDie(Health health)
+        {
+            Extensions.ClearCts(ref ctsAttack);
         }
 
 
@@ -69,6 +77,7 @@ namespace Controller.Enemy
                 while (true)
                 {
                     await UniTask.WaitForSeconds(stateMachine.enemyScriptable.attackCooldown, cancellationToken: ctsAttack.Token);    //esperando en el punto de 2 a 5 segs
+                    ctsAttack.Token.ThrowIfCancellationRequested();
                     Vector3 directionToPlayer = (PlayerStateMachine.Instance.transform.position - stateMachine.transform.position).normalized;
                     Vector3 spawnPosition = stateMachine.transform.position + (directionToPlayer * 0.5f);
 
