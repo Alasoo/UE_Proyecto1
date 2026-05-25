@@ -1844,8 +1844,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1628246169}
   m_HandleRect: {fileID: 1628246168}
   m_Direction: 0
-  m_Value: 0
-  m_Size: 1
+  m_Value: 1
+  m_Size: 0.99999994
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -2383,9 +2383,9 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: -4403296172286127768, guid: 51fbdc8d322470f4d838458a67abb65e, type: 2}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 0}
+  m_Resource: {fileID: 8300000, guid: 99b4dc78af44ca344b8ce202d434b6a9, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -2484,7 +2484,7 @@ MonoBehaviour:
   ambienceAudioSource: {fileID: 1682937857}
   effectsAudioSource: {fileID: 1682937856}
   <audioMixer>k__BackingField: {fileID: 24100000, guid: 51fbdc8d322470f4d838458a67abb65e, type: 2}
-  clickButton: {fileID: 0}
+  clickButton: {fileID: 8300000, guid: 32d4b1811dda14a6cb9e059ee8ad17d2, type: 3}
 --- !u!4 &1682937859
 Transform:
   m_ObjectHideFlags: 0
@@ -2634,7 +2634,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.ScrollRect
   m_Content: {fileID: 327984973}
   m_Horizontal: 0
-  m_Vertical: 0
+  m_Vertical: 1
   m_MovementType: 1
   m_Elasticity: 0.1
   m_Inertia: 1

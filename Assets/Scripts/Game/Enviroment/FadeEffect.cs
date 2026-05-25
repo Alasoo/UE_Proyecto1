@@ -19,8 +19,7 @@ namespace GameSystem.Effects
 
         private void OnDestroy()
         {
-            ctsEffect?.ClearCts();
-            ctsEffect = null;
+            Extensions.ClearCts(ref ctsEffect);
         }
 
 
@@ -62,8 +61,7 @@ namespace GameSystem.Effects
             }
             finally
             {
-                ctsEffect?.ClearCts();
-                ctsEffect = null;
+                Extensions.ClearCts(ref ctsEffect);
             }
         }
     }

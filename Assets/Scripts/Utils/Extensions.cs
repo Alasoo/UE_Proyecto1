@@ -187,6 +187,7 @@ namespace MyExtensions
 
         public static void ClearCts(this CancellationTokenSource cts)
         {
+            if (cts == null) return;
             cts?.Cancel();
             cts?.Dispose();
         }

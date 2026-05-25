@@ -14,15 +14,15 @@ namespace Controller.Enemy
     {
         public EnemyAttackState(EnemyStateMachine stateMachine) : base(stateMachine) { }
 
-
         private CancellationTokenSource ctsAttack;
+
+        private bool playerInRange = true;
 
 
 
         public override void OnDestroy()
         {
-            ctsAttack?.ClearCts();
-            ctsAttack = null;
+            Extensions.ClearCts(ref ctsAttack);
         }
 
         public override void Enter()
@@ -52,14 +52,12 @@ namespace Controller.Enemy
 
         public override void PlayerOnRange(bool inRange)
         {
-            if (!inRange)
-                stateMachine.SwitchState(new EnemyFollowPlayerState(stateMachine));
+            playerInRange = inRange;
         }
 
         public override void Exit()
         {
-            ctsAttack?.ClearCts();
-            ctsAttack = null;
+            Extensions.ClearCts(ref ctsAttack);
         }
 
 
@@ -70,6 +68,7 @@ namespace Controller.Enemy
             {
                 while (true)
                 {
+                    await UniTask.WaitForSeconds(stateMachine.enemyScriptable.attackCooldown, cancellationToken: ctsAttack.Token);    //esperando en el punto de 2 a 5 segs
                     Vector3 directionToPlayer = (PlayerStateMachine.Instance.transform.position - stateMachine.transform.position).normalized;
                     Vector3 spawnPosition = stateMachine.transform.position + (directionToPlayer * 0.5f);
 
@@ -79,10 +78,13 @@ namespace Controller.Enemy
                             spawnPosition
                         );
 
+                    if (!playerInRange)
+                    {
+                        stateMachine.SwitchState(new EnemyFollowPlayerState(stateMachine));
+                        return;
+                    }
                     //var buble = stateMachine.enemyScriptable.TakeBulletScriptable(); //.TakeBulletPrefab();
                     //BulletPool.Instance.Get(stateMachine.enemyScriptable.bulletData.bullet, direction, position);
-                    await UniTask.WaitForSeconds(stateMachine.enemyScriptable.attackCooldown, cancellationToken: ctsAttack.Token);    //esperando en el punto de 2 a 5 segs
-                    await UniTask.Yield(ctsAttack.Token);
                 }
             }
             catch (OperationCanceledException)

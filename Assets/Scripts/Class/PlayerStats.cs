@@ -8,7 +8,7 @@ namespace Controller.Player
     public class PlayerStats
     {
         public int currentDamage { get; private set; } = 10;
-        public int currentHealth { get; private set; } = 200;
+        public int currentHealth { get; private set; } = 100;
         public int maxHealth { get; private set; } = 100;
         public int currentProjectiles { get; private set; } = 1;
         private float movementSpeedBase = 3.5f;
@@ -115,6 +115,7 @@ namespace Controller.Player
             {
                 isDie = true;
                 OnDie?.Invoke();
+                DeathPopup.Instance.Open();
             }
         }
 

@@ -6,6 +6,7 @@ using System.Threading;
 using System;
 using BulletSystem;
 using System.Collections.Generic;
+using AudioController;
 
 
 public class PlayerAutoAttack : MonoBehaviour
@@ -14,6 +15,7 @@ public class PlayerAutoAttack : MonoBehaviour
     private PlayerStats playerStats;
 
     [SerializeField] private BulletScriptable bulletScriptable;
+    [SerializeField] private AudioClip soundAttack;
 
 
 
@@ -71,13 +73,14 @@ public class PlayerAutoAttack : MonoBehaviour
                         continue;
                     }
                     enemysTarget.Add(enemy.gameObject);
-    
+
 
                     Vector3 directionToEnemy = (enemy.position - transform.position).normalized;
                     float spawnOffset = PlayerStateMachine.Instance.circleCollider.radius + 0.15f;
                     Vector3 spawnPosition = transform.position + (directionToEnemy * spawnOffset);
 
                     BulletPool.Instance.Get(bulletData.bullet, directionToEnemy, spawnPosition, bulletScriptable);
+                    Audios.Instance.PlayEffect(soundAttack);
                     await UniTask.Yield(cancellationToken: ctsAutoAttack.Token);
                 }
 

@@ -169,6 +169,18 @@ MonoBehaviour:
     m_Localized: velocidad de ataque
     m_Metadata:
       m_Items: []
+  - m_Id: 31511543295238144
+    m_Localized: Has muerto
+    m_Metadata:
+      m_Items: []
+  - m_Id: 31511803828625408
+    m_Localized: "Ir al men\xFA"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 31531140169850880
+    m_Localized: Continua
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:

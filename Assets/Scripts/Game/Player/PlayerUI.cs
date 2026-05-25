@@ -29,6 +29,8 @@ namespace HealthSystem
         private const string HIT_KEY = "_hit";
         private const float flashDuration = .1f;
 
+        private bool inEffect = false;
+
 
 
         public void Init(PlayerStats playerStats, Material mat)
@@ -45,9 +47,9 @@ namespace HealthSystem
             experienceSlider.value = 0;
             experienceText.text = playerStats.experience + "/" + playerStats.maxExperience;
             lvlText.text = playerStats.lvl.ToString();
-            hpText.text = hpSlider.value + "/" + hpSlider.maxValue;
             hpSlider.maxValue = playerStats.maxHealth;
-            hpSlider.value = playerStats.maxHealth;
+            hpSlider.value = playerStats.currentHealth;
+            hpText.text = hpSlider.value + "/" + hpSlider.maxValue;
         }
 
         void OnDestroy()
@@ -72,9 +74,13 @@ namespace HealthSystem
             hpSlider.value = playerStats.currentHealth;
             hpText.text = hpSlider.value + "/" + hpSlider.maxValue;
 
-            ctsFlash?.Cancel();
-            ctsFlash = new();
-            _ = FlashEffect();
+            if (!inEffect)
+            {
+                inEffect = true;
+                ctsFlash?.Cancel();
+                ctsFlash = new();
+                _ = FlashEffect();
+            }
         }
 
         private void OnAddExperience()
@@ -100,6 +106,7 @@ namespace HealthSystem
             catch (OperationCanceledException) { }
             finally
             {
+                inEffect = false;
                 Extensions.ClearCts(ref ctsFlash);
             }
         }

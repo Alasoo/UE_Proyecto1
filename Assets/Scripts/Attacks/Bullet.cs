@@ -26,8 +26,7 @@ namespace BulletSystem
 
         void OnDestroy()
         {
-            ctsMove?.ClearCts();
-            ctsMove = null;
+            Extensions.ClearCts(ref ctsMove);
         }
 
         public virtual void OnRelease()
@@ -35,8 +34,7 @@ namespace BulletSystem
             if (IsReleased) return;
 
             IsReleased = true;
-            ctsMove?.ClearCts();
-            ctsMove = null;
+            Extensions.ClearCts(ref ctsMove);
             hasHit = false;
 
             if (trail != null) trail.Clear();

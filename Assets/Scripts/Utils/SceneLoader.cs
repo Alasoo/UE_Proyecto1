@@ -28,10 +28,8 @@ namespace GameSystem
 
         private void OnDestroy()
         {
-            ctsFade?.ClearCts();
-            ctsFade = null;
-            ctsLoad?.ClearCts();
-            ctsLoad = null;
+            Extensions.ClearCts(ref ctsFade);
+            Extensions.ClearCts(ref ctsLoad);
         }
 
 
@@ -55,16 +53,19 @@ namespace GameSystem
             {
                 float progress = Mathf.Clamp01(op.progress / 0.9f);
                 slider.value = progress;
-                progressText.text = (progress * 100f).ToString("F0") + "%";                  //la carga sera el 20%, la creación del mapa en el awake sera el otro 80%
+                progressText.text = (progress * 100f).ToString("F0") + "%";
                 await UniTask.Yield(cancellationToken: ctsLoad.Token);
             }
 
             slider.value = 1f;
             progressText.text = "100%";
 
+            op.allowSceneActivation = true;
+
+            await UniTask.Yield(cancellationToken: ctsLoad.Token);
+
             _ = FadeOff();
         }
-
         public async UniTask LoadGame()
         {
             ctsLoad?.Cancel();
@@ -108,11 +109,10 @@ namespace GameSystem
                 cg.blocksRaycasts = true;
                 await cg.LerpAlpha(1f, duration, ctsFade.Token);
             }
-            catch (OperationCanceledException){}
+            catch (OperationCanceledException) { }
             finally
             {
-                ctsFade?.ClearCts();
-                ctsFade = null;
+                Extensions.ClearCts(ref ctsFade);
             }
         }
 
@@ -137,8 +137,7 @@ namespace GameSystem
             }
             finally
             {
-                ctsFade?.ClearCts();
-                ctsFade = null;
+                Extensions.ClearCts(ref ctsFade);
             }
         }
 

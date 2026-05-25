@@ -332,6 +332,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 332d1c8afb5706441b903aa5b098fd05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AttackSystem.MageAttackController
+  soundAttack: {fileID: 8300000, guid: 0994c12e202f342459a4212e7287f7e8, type: 3}
 --- !u!114 &5159183187852316855
 MonoBehaviour:
   m_ObjectHideFlags: 0
