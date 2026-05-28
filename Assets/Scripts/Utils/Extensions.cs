@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
@@ -143,6 +144,43 @@ namespace MyExtensions
         }
 
 
+        public static async UniTask LerpAlpha(this TMP_Text txt, float target, float duration, CancellationToken token)
+        {
+            var time = 0f;
+            var startValue = txt.alpha;
+            while (time < duration && !token.IsCancellationRequested)
+            {
+                txt.alpha = Mathf.Lerp(startValue, target, time / duration);
+                time += Time.unscaledDeltaTime;
+                await UniTask.Yield();
+            }
+
+            if (!token.IsCancellationRequested)
+            {
+                txt.alpha = target;
+            }
+            else
+                throw new TaskCanceledException();
+        }
+
+        public static async UniTask LerpMovement(this TMP_Text txt, Vector3 target, float duration, CancellationToken token)
+        {
+            var time = 0f;
+            var startValue = txt.transform.position;
+            while (time < duration && !token.IsCancellationRequested)
+            {
+                txt.transform.position = Vector3.Lerp(startValue, target, time / duration);
+                time += Time.unscaledDeltaTime;
+                await UniTask.Yield();
+            }
+
+            if (!token.IsCancellationRequested)
+            {
+                txt.transform.position = target;
+            }
+            else
+                throw new TaskCanceledException();
+        }
 
 
         public static async UniTask LerpRectMovementX(this RectTransform rt, float target, float duration, CancellationToken token)

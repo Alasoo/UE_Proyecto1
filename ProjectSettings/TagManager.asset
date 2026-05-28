@@ -59,5 +59,8 @@ TagManager:
   - name: Tree
     uniqueID: 1604729945
     locked: 0
+  - name: Particles
+    uniqueID: 259526393
+    locked: 0
   m_RenderingLayers:
   - Default

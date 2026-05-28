@@ -66,6 +66,7 @@ namespace HealthSystem
 
             if (hpSlider.value == 0)
             {
+                PlayerStateMachine.Instance.playerUI.AddEnemyDie();
                 isDie = true;
                 OnDie?.Invoke(this);
             }

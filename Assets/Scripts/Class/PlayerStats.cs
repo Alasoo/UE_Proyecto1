@@ -31,7 +31,7 @@ namespace Controller.Player
 
         public event Action OnAddExperience;
         public event Action OnAddLvl;
-        public event Action OnTakeDamage;
+        public event Action<int> OnTakeDamage;
         public event Action OnAddHealth;
         public event Action OnDie;
 
@@ -110,7 +110,7 @@ namespace Controller.Player
             int totalDamage = physicalDamage + magicalDamage;
 
             currentHealth = Mathf.Max(0, currentHealth - totalDamage);
-            OnTakeDamage?.Invoke();
+            OnTakeDamage?.Invoke(totalDamage);
             if (currentHealth <= 0 && !isDie)
             {
                 isDie = true;
