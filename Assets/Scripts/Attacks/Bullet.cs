@@ -76,6 +76,7 @@ namespace BulletSystem
             this.bulletScriptable = bulletScriptable;
             var colors = bulletScriptable.TakeColor();
             spriteRenderer.color = colors.startColor;
+            spriteRenderer.sprite = bulletScriptable.sprite;
             trail.startColor = colors.startColor;
             trail.endColor = colors.endColor;
         }
