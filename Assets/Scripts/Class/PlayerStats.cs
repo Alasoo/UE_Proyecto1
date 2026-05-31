@@ -8,7 +8,7 @@ namespace Controller.Player
     public class PlayerStats
     {
         public int currentDamage { get; private set; } = 10;
-        public int currentHealth { get; private set; } = 200;
+        public int currentHealth { get; private set; } = 100;
         public int maxHealth { get; private set; } = 100;
         public int currentProjectiles { get; private set; } = 1;
         private float movementSpeedBase = 3.5f;
@@ -31,7 +31,7 @@ namespace Controller.Player
 
         public event Action OnAddExperience;
         public event Action OnAddLvl;
-        public event Action OnTakeDamage;
+        public event Action<int> OnTakeDamage;
         public event Action OnAddHealth;
         public event Action OnDie;
 
@@ -110,11 +110,12 @@ namespace Controller.Player
             int totalDamage = physicalDamage + magicalDamage;
 
             currentHealth = Mathf.Max(0, currentHealth - totalDamage);
-            OnTakeDamage?.Invoke();
+            OnTakeDamage?.Invoke(totalDamage);
             if (currentHealth <= 0 && !isDie)
             {
                 isDie = true;
                 OnDie?.Invoke();
+                DeathPopup.Instance.Open();
             }
         }
 

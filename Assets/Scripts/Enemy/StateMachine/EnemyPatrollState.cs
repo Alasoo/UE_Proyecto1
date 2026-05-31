@@ -24,8 +24,7 @@ namespace Controller.Enemy
 
         public override void OnDestroy()
         {
-            ctsPatroll?.ClearCts();
-            ctsPatroll = null;
+            Extensions.ClearCts(ref ctsPatroll);
         }
 
         public override void Enter()
@@ -42,8 +41,8 @@ namespace Controller.Enemy
 
         public override void Exit()
         {
-            ctsPatroll?.ClearCts();
-            ctsPatroll = null;
+            Extensions.ClearCts(ref ctsPatroll);
+
             stateMachine.agent.ResetPath();
         }
 
@@ -92,8 +91,7 @@ namespace Controller.Enemy
             }
             finally
             {
-                ctsPatroll?.ClearCts();
-                ctsPatroll = null;
+                Extensions.ClearCts(ref ctsPatroll);
             }
 
         }

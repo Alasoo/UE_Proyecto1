@@ -169,6 +169,18 @@ MonoBehaviour:
     m_Localized: velocitat d'atac
     m_Metadata:
       m_Items: []
+  - m_Id: 31511543295238144
+    m_Localized: Has mort
+    m_Metadata:
+      m_Items: []
+  - m_Id: 31511803828625408
+    m_Localized: "Anar al men\xFA"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 31531140169850880
+    m_Localized: Continuar
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:

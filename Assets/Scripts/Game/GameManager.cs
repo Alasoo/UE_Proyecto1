@@ -100,8 +100,11 @@ public class GameManager : Singleton<GameManager>
         catch (OperationCanceledException) { }
         finally
         {
-            spawnCts.Remove(cts);
-            cts?.ClearCts();
+            if (spawnCts.Contains(cts))
+            {
+                spawnCts.Remove(cts);
+                cts?.ClearCts();
+            }
         }
     }
 

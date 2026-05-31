@@ -163,6 +163,18 @@ MonoBehaviour:
     m_Key: AttackSpeed
     m_Metadata:
       m_Items: []
+  - m_Id: 31511543295238144
+    m_Key: YouDie
+    m_Metadata:
+      m_Items: []
+  - m_Id: 31511803828625408
+    m_Key: GoMenu
+    m_Metadata:
+      m_Items: []
+  - m_Id: 31531140169850880
+    m_Key: Continue
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

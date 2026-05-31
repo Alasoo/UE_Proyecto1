@@ -20,6 +20,8 @@ namespace MyUI.ItemShop
         [Header("PREFAB")]
         [SerializeField] private RankingGame rankingGame;
 
+        private int limitSpawn = 50;
+
 
         public override void Init()
         {
@@ -34,6 +36,8 @@ namespace MyUI.ItemShop
                 {
                     RankingGame rankingClone = Instantiate(rankingGame, scrollRect.content);
                     rankingClone.Init(game);
+                    limitSpawn--;
+                    if(limitSpawn <= 0) break;
                 }
 
                 return;

@@ -218,6 +218,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2f790d26f36b4eab93ea5ed88b14cdc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AttackSystem.ArcherAttackController
+  soundAttack: {fileID: 8300000, guid: fe0b1f9aeb45b41b089175aeeabd5d95, type: 3}
 --- !u!114 &6153955393647647789
 MonoBehaviour:
   m_ObjectHideFlags: 0
