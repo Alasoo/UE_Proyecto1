@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e11a064bc7fc4d44bbed4722f0c03367, type: 3}
+  m_Name: VolcanicBiome
+  m_EditorClassIdentifier: Assembly-CSharp::BiomeScriptable
+  waterRule: {fileID: 11400000, guid: bcf884b3e906fdf48aadbd19e9dfecf5, type: 2}
+  mountainRule: {fileID: 11400000, guid: fc3d41728ec32234d8c3bfb43c8c1daa, type: 2}
+  ground:
+  - {fileID: 11400000, guid: 85ded8d702a2c93469838dd614626ef2, type: 2}
+  - {fileID: 11400000, guid: 5c784b5a4d527c04594e7d6d5aea88b9, type: 2}
+  - {fileID: 11400000, guid: 87cd32aa3b6f9a549aa9e00392b1ce80, type: 2}
+  size: {x: 200, y: 150}
+  repeatWater: 20
+  waterSizeMin: {x: 8, y: 4}
+  waterSizeMax: {x: 50, y: 40}
+  repeatMountain: 20
+  mountainSizeMin: {x: 8, y: 4}
+  mountainSizeMax: {x: 40, y: 20}
+  treeAmount: 3
+  trees: []
