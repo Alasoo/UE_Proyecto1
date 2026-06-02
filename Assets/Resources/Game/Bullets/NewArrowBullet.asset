@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 847c149bd9d8d47faa05933785807a57, type: 3}
   m_Name: NewArrowBullet
   m_EditorClassIdentifier: Assembly-CSharp::BulletSystem.ArrowBulletScriptable
-  sprite: {fileID: 21300000, guid: 701d7c3acb2c23b4dab7e63273f1c7f0, type: 3}
+  sprite: {fileID: 21300000, guid: 32245875c50ceb443a032a45caa115f5, type: 3}
   lifeTime: 1.5
   speed: 12
   physicalDamage: 10

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d62730e9c5b74ac4d8f7e28fec632e4d, type: 3}
   m_Name: NewMageEnemy
   m_EditorClassIdentifier: Assembly-CSharp::EnemySystem.MageEnemyScriptable
-  sprite: {fileID: 21300000, guid: 3e5ddf8059c9a504e928613e5762caf0, type: 3}
+  sprite: {fileID: 21300000, guid: 8df31798222132a4da5641fae80db1b2, type: 3}
   hpMax: 10
   physicalArmor: 50
   magicalArmor: 50
