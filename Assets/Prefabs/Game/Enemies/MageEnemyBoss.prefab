@@ -882,7 +882,7 @@ SpriteRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3356798291949599129}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -1786,6 +1786,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8450476920162515033, guid: f8c65e18373f27f45875bc57b4fdd0ff, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8450476920162515033, guid: f8c65e18373f27f45875bc57b4fdd0ff, type: 3}
       propertyPath: m_SortingLayer
       value: 4
       objectReference: {fileID: 0}
@@ -1804,6 +1808,10 @@ PrefabInstance:
     - target: {fileID: 8577446255216487995, guid: f8c65e18373f27f45875bc57b4fdd0ff, type: 3}
       propertyPath: m_Name
       value: 'Mago boss '
+      objectReference: {fileID: 0}
+    - target: {fileID: 8577446255216487995, guid: f8c65e18373f27f45875bc57b4fdd0ff, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
