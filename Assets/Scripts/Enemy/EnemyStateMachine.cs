@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using AttackSystem;
 using EnemySystem;
 using HealthSystem;
-using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.UI;
 
 
 namespace Controller.Enemy

@@ -18,7 +18,7 @@ namespace Controller.Enemy
         public override void Init(EnemyScriptable enemyScriptable)
         {
             base.Init(enemyScriptable);
-            energySlider.gameObject.SetActive(true);
+            //energySlider.gameObject.SetActive(true);
             SwitchState(new EnemyFollowPlayerState(this));
         }
 
