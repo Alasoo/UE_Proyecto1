@@ -17,7 +17,7 @@ MonoBehaviour:
   physicalArmor: 50
   magicalArmor: 50
   physicalDamage: 0
-  magicalDamage: 200
+  magicalDamage: 500
   speedMov: 8
   rangeAttack: 10
   rangeVision: 10
