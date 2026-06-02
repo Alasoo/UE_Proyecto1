@@ -25,3 +25,7 @@ MonoBehaviour:
     minEnemies: 6
     maxEnemies: 12
     secondToSpawn: 80
+  - enemyScriptable: {fileID: 11400000, guid: 44681454292d4c8438ed8d6e52d6008f, type: 2}
+    minEnemies: 1
+    maxEnemies: 2
+    secondToSpawn: 110
