@@ -12,15 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcd71f48547c64c9aaf8dc4c18d07800, type: 3}
   m_Name: NewArcherEnemy
   m_EditorClassIdentifier: Assembly-CSharp::EnemySystem.ArcherEnemyScriptable
-  sprite: {fileID: 21300000, guid: bad5337ae468b4cac9aba666569afd81, type: 3}
-  hpMax: 100
+  sprite: {fileID: 21300000, guid: 42da3c6f37083fc4bb5beab7dfb6f762, type: 3}
+  hpMax: 40
   physicalArmor: 50
   magicalArmor: 50
   physicalDamage: 200
   magicalDamage: 0
-  speedMov: 5
-  rangeAttack: 6
-  rangeVision: 6
+  speedMov: 3
+  rangeAttack: 7
+  rangeVision: 7
   patrolRadius: 3
   attackCooldown: 1.5
   enemyPrefab: {fileID: 4495325119765489583, guid: 337dde475eaf947adb387c925be94c15, type: 3}
