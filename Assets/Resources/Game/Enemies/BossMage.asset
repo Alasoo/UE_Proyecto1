@@ -13,16 +13,16 @@ MonoBehaviour:
   m_Name: BossMage
   m_EditorClassIdentifier: Assembly-CSharp::EnemySystem.MageEnemyScriptable
   sprite: {fileID: 21300000, guid: d279bfac00f889f41b72f1bcc0a97326, type: 3}
-  hpMax: 10
+  hpMax: 150
   physicalArmor: 50
   magicalArmor: 50
   physicalDamage: 0
   magicalDamage: 200
-  speedMov: 5
-  rangeAttack: 5
-  rangeVision: 5
+  speedMov: 8
+  rangeAttack: 10
+  rangeVision: 10
   patrolRadius: 3
-  attackCooldown: 2
-  enemyPrefab: {fileID: 5159183187852316855, guid: 6c83641baf156f7488c6f7954037e81b, type: 3}
+  attackCooldown: 1.5
+  enemyPrefab: {fileID: 5159183187852316855, guid: 7b24ffa2ddb51aa4584bc1f6b8e3fcdc, type: 3}
   manaMax: 250
-  bulletScriptable: {fileID: 11400000, guid: 9193b09f68aed904fb0eb5d107c128ae, type: 2}
+  bulletScriptable: {fileID: 11400000, guid: e49494e1e036fac44b1eb67e39ddc047, type: 2}
