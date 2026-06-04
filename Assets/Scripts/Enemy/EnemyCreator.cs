@@ -42,8 +42,15 @@ namespace GameSystem
             Extensions.ClearCts(ref ctsCreator);
 
             foreach (var wave in waves)
+            {
                 foreach (var enemy in wave.Value)
-                    enemy.health.ClearSubscriptions();
+                {
+                    if (enemy != null)
+                    {
+                        enemy.health.ClearSubscriptions();
+                    }
+                }
+            }
 
             for (int i = 0; i < ctsFindPos.Count; i++)
             {
@@ -113,7 +120,8 @@ namespace GameSystem
 
                     newEnemy.health.OnDie += (health) =>
                     {
-                        newEnemy.gameObject.SetActive(false);
+                        //newEnemy.gameObject.SetActive(false);
+                        Destroy(newEnemy.gameObject);
 
                         if (activeWaves.ContainsKey(waveData))
                             activeWaves[waveData].Remove(newEnemy);
