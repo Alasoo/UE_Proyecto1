@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
+using Cysharp.Threading.Tasks;
 using MyExtensions;
 using UnityEngine;
 
@@ -31,21 +32,21 @@ namespace MyUI.Panels
 
         void OnDestroy()
         {
-            ctx1?.Cancel();
+            Extensions.ClearCts(ref ctx1);
         }
 
         public virtual void Enter()
         {
-            FadeIn();
+            FadeIn().Forget();
         }
 
         public virtual void Exit()
         {
-            FadeOut();
+            FadeOut().Forget();
         }
 
 
-        protected void FadeIn()
+        protected async UniTaskVoid FadeIn()
         {
             panel.interactable = true;
 
@@ -56,12 +57,16 @@ namespace MyUI.Panels
             panel.gameObject.SetActive(true);
             try
             {
-                _ = panel.LerpAlpha(1, .2f, ctx1.Token);
+                await panel.LerpAlpha(1, .2f, ctx1.Token);
             }
             catch (OperationCanceledException)
             {
                 // La operación fue cancelada, no hacemos nada
                 return;
+            }
+            finally
+            {
+                Extensions.ClearCts(ref ctx1);
             }
 
             //panel.interactable = true;
@@ -70,9 +75,8 @@ namespace MyUI.Panels
         }
 
 
-        protected async void FadeOut()
+        protected async UniTaskVoid FadeOut()
         {
-
             ctx1?.Cancel();
             ctx1 = new CancellationTokenSource();
             panel.interactable = false;
@@ -87,6 +91,10 @@ namespace MyUI.Panels
             catch (OperationCanceledException)
             {
                 return;
+            }
+            finally
+            {
+                Extensions.ClearCts(ref ctx1);
             }
 
             //panel.interactable = false;

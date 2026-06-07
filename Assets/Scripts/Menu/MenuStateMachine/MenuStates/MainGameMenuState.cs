@@ -20,6 +20,12 @@ namespace MyUI.OptionButtons
         [SerializeField] private Button settingsButton;
         [SerializeField] private Button menuButton;
 
+        [SerializeField] private Button yesQuitButton;
+        [SerializeField] private Button noQuitButton;
+
+        [Header("CONFIRMATION PANEL")]
+        [SerializeField] private GameObject confirmationPanel;
+
 
         public override void Init()
         {
@@ -27,6 +33,10 @@ namespace MyUI.OptionButtons
             rankingButton.onClick.AddListener(OnClickRankingPanel);
             settingsButton.onClick.AddListener(OnClickSettingsPanel);
             menuButton.onClick.AddListener(OnClickMenu);
+
+            yesQuitButton.onClick.AddListener(() => ConfirmExit(true));
+            noQuitButton.onClick.AddListener(() => ConfirmExit(false));
+            OpenConfirmationPanel(false);
         }
 
         private void OnClickContinuePanel()
@@ -50,9 +60,25 @@ namespace MyUI.OptionButtons
         private void OnClickMenu()
         {
             Audios.Instance.PlayClickButton();
-            _ = SceneLoader.Instance.LoadMenu();
+            OpenConfirmationPanel(true);
         }
 
+
+
+        private void OpenConfirmationPanel(bool open)
+        {
+            confirmationPanel.SetActive(open);
+        }
+
+
+        private void ConfirmExit(bool confirm)
+        {
+            Audios.Instance.PlayClickButton();
+            if (confirm)
+                _ = SceneLoader.Instance.LoadMenu();
+            else
+                OpenConfirmationPanel(false);
+        }
 
 
 

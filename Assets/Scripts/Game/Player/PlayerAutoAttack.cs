@@ -42,6 +42,7 @@ public class PlayerAutoAttack : MonoBehaviour
 
     void OnDestroy()
     {
+        Debug.Log($"OnDestroy");
         attack = false;
         Extensions.ClearCts(ref ctsAutoAttack);
         playerStats.OnDie -= OnDie;
@@ -49,8 +50,8 @@ public class PlayerAutoAttack : MonoBehaviour
 
     private void OnDie()
     {
-        //attack = false;
-        //Extensions.ClearCts(ref ctsAutoAttack);
+        attack = false;
+        Extensions.ClearCts(ref ctsAutoAttack);
     }
 
     private async UniTask AutoAttackTask()
@@ -61,7 +62,9 @@ public class PlayerAutoAttack : MonoBehaviour
             {
                 ctsAutoAttack.Token.ThrowIfCancellationRequested();
                 List<GameObject> enemysTarget = new();
-                await UniTask.WaitUntil(() => enemiesOnRange.Count > 0);
+                await UniTask.WaitUntil(() => enemiesOnRange.Count > 0, cancellationToken: ctsAutoAttack.Token);
+                ctsAutoAttack.Token.ThrowIfCancellationRequested();
+
                 for (int i = 0; i < playerStats.currentProjectiles; i++)
                 {
                     var bulletData = bulletScriptable.TakeBulletPrefab();

@@ -1,5 +1,6 @@
 using System;
 using AudioController;
+using Cysharp.Threading.Tasks;
 using GameSystem;
 using MyUI.Panels;
 using UnityEngine;
@@ -19,6 +20,11 @@ namespace MyUI.OptionButtons
         [SerializeField] private Button shopButton;
         [SerializeField] private Button settingsButton;
         [SerializeField] private Button quitButton;
+        [SerializeField] private Button yesQuitButton;
+        [SerializeField] private Button noQuitButton;
+
+        [Header("CONFIRMATION PANEL")]
+        [SerializeField] private GameObject confirmationPanel;
 
 
         public override void Init()
@@ -27,12 +33,15 @@ namespace MyUI.OptionButtons
             shopButton.onClick.AddListener(OnClickShopPanel);
             settingsButton.onClick.AddListener(OnClickSettingsPanel);
             quitButton.onClick.AddListener(OnClickQuit);
+            yesQuitButton.onClick.AddListener(() => ConfirmExit(true));
+            noQuitButton.onClick.AddListener(() => ConfirmExit(false));
+            OpenConfirmationPanel(false);
         }
 
         private void OnClickPlayPanel()
         {
             Audios.Instance.PlayClickButton();
-            _ = SceneLoader.Instance.LoadGame();
+             SceneLoader.Instance.LoadGame().Forget();
         }
 
         private void OnClickShopPanel()
@@ -50,10 +59,24 @@ namespace MyUI.OptionButtons
         private void OnClickQuit()
         {
             Audios.Instance.PlayClickButton();
-            Application.Quit();
+            OpenConfirmationPanel(true);
         }
 
 
+        private void OpenConfirmationPanel(bool open)
+        {
+            confirmationPanel.SetActive(open);
+        }
+
+
+        private void ConfirmExit(bool confirm)
+        {
+            Audios.Instance.PlayClickButton();
+            if (confirm)
+                Application.Quit();
+            else
+                OpenConfirmationPanel(false);
+        }
 
 
     }

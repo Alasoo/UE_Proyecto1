@@ -181,6 +181,10 @@ MonoBehaviour:
     m_Localized: Continua
     m_Metadata:
       m_Items: []
+  - m_Id: 36149266253602816
+    m_Localized: "\xBFEst\xE1s seguro que quieres salir?"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:

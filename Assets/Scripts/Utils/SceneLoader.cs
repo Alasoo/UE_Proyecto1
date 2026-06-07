@@ -44,51 +44,96 @@ namespace GameSystem
             ctsLoad?.Cancel();
             ctsLoad = new();
 
-            await FadeOn();
-
-            AsyncOperation op = SceneManager.LoadSceneAsync(menuIndex);
-            op.allowSceneActivation = false;
-
-            while (op.progress < 0.9f)
+            try
             {
-                float progress = Mathf.Clamp01(op.progress / 0.9f);
-                slider.value = progress;
-                progressText.text = (progress * 100f).ToString("F0") + "%";
+                await FadeOn();
+
+                AsyncOperation op = SceneManager.LoadSceneAsync(menuIndex);
+                op.allowSceneActivation = false;
+
+                while (op.progress < 0.9f)
+                {
+                    float progress = Mathf.Clamp01(op.progress / 0.9f);
+                    slider.value = progress;
+                    progressText.text = (progress * 100f).ToString("F0") + "%";
+                    await UniTask.Yield(cancellationToken: ctsLoad.Token);
+                }
+
+                slider.value = 1f;
+                progressText.text = "100%";
+
+                op.allowSceneActivation = true;
+
                 await UniTask.Yield(cancellationToken: ctsLoad.Token);
+
+                await FadeOff();
             }
-
-            slider.value = 1f;
-            progressText.text = "100%";
-
-            op.allowSceneActivation = true;
-
-            await UniTask.Yield(cancellationToken: ctsLoad.Token);
-
-            _ = FadeOff();
+            catch (OperationCanceledException) { }
+            finally
+            {
+                Extensions.ClearCts(ref ctsFade);
+                Extensions.ClearCts(ref ctsLoad);
+            }
         }
+
         public async UniTask LoadGame()
         {
             ctsLoad?.Cancel();
-            ctsLoad = new();
+            ctsLoad = new CancellationTokenSource();
 
-            await FadeOn();
+            // 1. Guardamos el token en una variable struct. 
+            // Aunque ctsLoad se vuelva null en OnDestroy, esta variable sobrevivirá.
+            CancellationToken token = ctsLoad.Token;
 
-            AsyncOperation op = SceneManager.LoadSceneAsync(gameIndex);
-            op.allowSceneActivation = false;
-            while (op.progress < 0.9f) { await UniTask.Yield(cancellationToken: ctsLoad.Token); }
-            op.allowSceneActivation = true;
+            try
+            {
+                await FadeOn();
 
-            await UniTask.WaitUntil(() => MapCreator.Instance != null, cancellationToken: ctsLoad.Token);
+                AsyncOperation op = SceneManager.LoadSceneAsync(gameIndex);
+                op.allowSceneActivation = false;
 
-            MapCreator.Instance.OnProgress += OnProgress;
-            await MapCreator.Instance.Init();
-            MapCreator.Instance.OnProgress -= OnProgress;
+                // Usamos la variable 'token'
+                while (op.progress < 0.9f) { await UniTask.Yield(cancellationToken: token); }
+                op.allowSceneActivation = true;
 
-            await UniTask.WaitForSeconds(.5f);      //pequeño delay para que se vea el 100%
-            _ = FadeOff();
+                await UniTask.WaitUntil(() => MapCreator.Instance != null, cancellationToken: token);
+
+                MapCreator.Instance.OnProgress += OnProgress;
+                await MapCreator.Instance.Init();
+
+                // Usamos la variable 'token'
+                token.ThrowIfCancellationRequested();
+
+                MapCreator.Instance.OnProgress -= OnProgress;
+
+                // 2. Le pasamos el token al delay
+                await UniTask.WaitForSeconds(.5f, cancellationToken: token);
+
+                await FadeOff();
+            }
+            catch (OperationCanceledException)
+            {
+                // Cancelación controlada al quitar el Play
+                Debug.Log("LoadGame cancelado correctamente.");
+            }
+            catch (Exception e)
+            {
+                // Si ocurre CUALQUIER otro error, queremos verlo en consola
+                Debug.LogError($"Error crítico en LoadGame: {e}");
+            }
+            finally
+            {
+                // En caso de que se haya modificado OnProgress y haya fallado a medias
+                if (MapCreator.Instance != null)
+                {
+                    MapCreator.Instance.OnProgress -= OnProgress;
+                }
+
+                Extensions.ClearCts(ref ctsFade);
+                Extensions.ClearCts(ref ctsLoad);
+            }
         }
-
-
+        
         private void OnProgress(float progress)
         {
             slider.value = progress;
@@ -109,7 +154,10 @@ namespace GameSystem
                 cg.blocksRaycasts = true;
                 await cg.LerpAlpha(1f, duration, ctsFade.Token);
             }
-            catch (OperationCanceledException) { }
+            catch (OperationCanceledException)
+            {
+                throw;
+            }
             finally
             {
                 Extensions.ClearCts(ref ctsFade);
@@ -129,11 +177,7 @@ namespace GameSystem
             catch (OperationCanceledException)
             {
                 Debug.LogError($"Cancelado");
-            }
-            catch (Exception e)
-            {
-                Debug.LogError($"Error: {e}");
-                return;
+                throw;
             }
             finally
             {

@@ -74,33 +74,41 @@ namespace GameSystem
 
                 currentStepWeight = 0.15f;
                 await MakeMountains(currentBiome);
+                ctsCreator.Token.ThrowIfCancellationRequested();
                 baseProgress += currentStepWeight;
 
                 currentStepWeight = 0.20f;
                 await MakeGround(currentBiome);
+                ctsCreator.Token.ThrowIfCancellationRequested();
                 baseProgress += currentStepWeight;
 
                 currentStepWeight = 0.10f;
                 await MakeWater(currentBiome);
+                ctsCreator.Token.ThrowIfCancellationRequested();
                 baseProgress += currentStepWeight;
 
                 currentStepWeight = 0.15f;
                 await MakeTrees(currentBiome);
+                ctsCreator.Token.ThrowIfCancellationRequested();
                 baseProgress += currentStepWeight;
 
                 currentStepWeight = 0.15f;
                 await MakeLimit(currentBiome);
+                ctsCreator.Token.ThrowIfCancellationRequested();
                 baseProgress += currentStepWeight;
 
                 currentStepWeight = 0.05f;
                 await navMeshSurface.BuildNavMeshAsync();
+                ctsCreator.Token.ThrowIfCancellationRequested();
                 ReportLocalProgress(1f);
                 baseProgress += currentStepWeight;
 
                 await UniTask.Yield(ctsCreator.Token);
+                ctsCreator.Token.ThrowIfCancellationRequested();
 
                 currentStepWeight = 0.20f;
                 await enemyCreator.Init();
+                ctsCreator.Token.ThrowIfCancellationRequested();
                 baseProgress += currentStepWeight;
 
                 baseProgress = 1f;
