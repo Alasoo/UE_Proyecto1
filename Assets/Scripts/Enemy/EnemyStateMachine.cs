@@ -14,6 +14,7 @@ namespace Controller.Enemy
         [field: SerializeField] public NavMeshAgent agent { get; private set; }
         [field: SerializeField] public Transform body { get; private set; }
         [field: SerializeField] public SpriteRenderer spriteRenderer { get; private set; }
+        [field: SerializeField] public Animator animator { get; private set; }
         [field: SerializeField] public RangeVision rangeVision { get; private set; }
 
         [field: Header("UI")]
