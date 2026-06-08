@@ -17,7 +17,7 @@ MonoBehaviour:
     m_OverrideState: 0
     m_Value: 1
   threshold:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value: 0.9
   intensity:
     m_OverrideState: 1
@@ -112,13 +112,13 @@ MonoBehaviour:
     m_Value: 1
   contrast:
     m_OverrideState: 1
-    m_Value: 0
+    m_Value: 10
   colorFilter:
     m_OverrideState: 1
     m_Value: {r: 1, g: 0.90087503, b: 0.8820755, a: 1}
   hueShift:
-    m_OverrideState: 1
-    m_Value: 0
-  saturation:
     m_OverrideState: 0
     m_Value: 0
+  saturation:
+    m_OverrideState: 1
+    m_Value: 10
