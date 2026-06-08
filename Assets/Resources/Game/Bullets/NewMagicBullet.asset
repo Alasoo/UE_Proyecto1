@@ -20,4 +20,4 @@ MonoBehaviour:
   bulletPrefab: {fileID: 5793275415114997576, guid: da2e6e3b15e23f8439cdcfd7fac8ce75, type: 3}
   bulletCount: 15
   startColor: {r: 1, g: 1, b: 1, a: 1}
-  endColor: {r: 1, g: 1, b: 1, a: 0}
+  endColor: {r: 0.92941177, g: 0.4627451, b: 0.14901961, a: 1}

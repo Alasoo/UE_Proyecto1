@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemySystem.MageEnemyScriptable
   sprite: {fileID: 21300000, guid: d279bfac00f889f41b72f1bcc0a97326, type: 3}
   hpMax: 150
-  physicalArmor: 50
-  magicalArmor: 50
+  physicalArmor: 20
+  magicalArmor: 20
   physicalDamage: 0
   magicalDamage: 500
   speedMov: 8

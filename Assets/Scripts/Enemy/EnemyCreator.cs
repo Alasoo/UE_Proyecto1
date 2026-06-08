@@ -35,6 +35,7 @@ namespace GameSystem
         public Dictionary<WaveData, List<EnemyStateMachine>> activeWaves { get; private set; } = new();
 
         public event Action<WaveData> OnDieWave;
+        public event Action OnDieEnemy;
 
 
         private void OnDestroy()
@@ -120,8 +121,7 @@ namespace GameSystem
 
                     newEnemy.health.OnDie += (health) =>
                     {
-                        //newEnemy.gameObject.SetActive(false);
-                        Destroy(newEnemy.gameObject);
+                        ActiveEnemy(newEnemy, false);
 
                         if (activeWaves.ContainsKey(waveData))
                             activeWaves[waveData].Remove(newEnemy);
@@ -130,7 +130,7 @@ namespace GameSystem
 
                         if (activeWaves[waveData].Count == 0)
                         {
-                            RewardPopup.Instance.Open(PlayerStateMachine.Instance.playerStats);
+                            //RewardPopup.Instance.Open(PlayerStateMachine.Instance.playerStats);
                             OnDieWave?.Invoke(waveData);
                         }
                     };
@@ -235,7 +235,7 @@ namespace GameSystem
                     potentialWorldPos = hit.position;
 
                     newEnemy.transform.position = potentialWorldPos;
-                    newEnemy.gameObject.SetActive(true);
+                    ActiveEnemy(newEnemy, true);
 
                     newEnemy.agent.enabled = true;
                     newEnemy.agent.Warp(potentialWorldPos);
@@ -341,6 +341,20 @@ namespace GameSystem
         }
 
 
+        private void ActiveEnemy(EnemyStateMachine enemy, bool active)
+        {
+            if (active)
+            {
+                enemy.agent.enabled = true;
+                enemy.gameObject.SetActive(true);
+            }
+            else
+            {
+                enemy.agent.enabled = false;
+                enemy.transform.position = Vector2.one * -50;
+                OnDieEnemy?.Invoke();
+            }
+        }
 
 
     }

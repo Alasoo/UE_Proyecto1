@@ -5,6 +5,7 @@ using EnemySystem;
 using HealthSystem;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.U2D.Animation;
 
 
 namespace Controller.Enemy
@@ -14,6 +15,7 @@ namespace Controller.Enemy
         [field: SerializeField] public NavMeshAgent agent { get; private set; }
         [field: SerializeField] public Transform body { get; private set; }
         [field: SerializeField] public SpriteRenderer spriteRenderer { get; private set; }
+        [field: SerializeField] public SpriteSkin spriteSkin { get; private set; }
         [field: SerializeField] public Animator animator { get; private set; }
         [field: SerializeField] public RangeVision rangeVision { get; private set; }
 

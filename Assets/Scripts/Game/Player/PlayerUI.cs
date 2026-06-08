@@ -9,6 +9,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+
 namespace HealthSystem
 {
     public class PlayerUI : MonoBehaviour
@@ -92,6 +93,7 @@ namespace HealthSystem
         private void OnAddExperience()
         {
             experienceText.text = playerStats.experience + "/" + playerStats.maxExperience;
+            experienceSlider.value = playerStats.experience;
         }
 
         private void OnAddLvl()

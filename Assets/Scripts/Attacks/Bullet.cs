@@ -5,6 +5,7 @@ using Controller.Player;
 using Cysharp.Threading.Tasks;
 using MyExtensions;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 
 namespace BulletSystem
@@ -13,6 +14,7 @@ namespace BulletSystem
     {
         [SerializeField] protected SpriteRenderer spriteRenderer;
         [SerializeField] protected TrailRenderer trail;
+        [SerializeField] protected Light2D light2D;
         [SerializeField] protected bool scaleBulletByTime = false;
 
         protected BulletScriptable bulletScriptable;
@@ -77,8 +79,13 @@ namespace BulletSystem
             var colors = bulletScriptable.TakeColor();
             spriteRenderer.color = colors.startColor;
             spriteRenderer.sprite = bulletScriptable.sprite;
-            trail.startColor = colors.startColor;
-            trail.endColor = colors.endColor;
+            if (trail != null)
+            {
+                trail.startColor = colors.startColor;
+                trail.endColor = colors.endColor;
+            }
+            if (light2D != null)
+                light2D.color = colors.endColor;
         }
 
 

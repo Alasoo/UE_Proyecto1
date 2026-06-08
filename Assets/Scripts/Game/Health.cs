@@ -52,7 +52,6 @@ namespace HealthSystem
             }
 
             float hpToPlayer = playerStats.lifeStealPercent * totalDamage / 100f;
-            Debug.Log($"Debo curar al player: {hpToPlayer}, {playerStats.lifeStealPercent} * {totalDamage} / 100f");
             playerStats.AddHealth(Mathf.CeilToInt(hpToPlayer));
 
             hpSlider.value = Mathf.Max(0, hpSlider.value - totalDamage);
@@ -69,6 +68,7 @@ namespace HealthSystem
                 PlayerStateMachine.Instance.playerUI.AddEnemyDie();
                 isDie = true;
                 OnDie?.Invoke(this);
+                
             }
         }
 

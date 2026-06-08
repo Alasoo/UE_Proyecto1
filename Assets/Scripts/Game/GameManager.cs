@@ -113,5 +113,4 @@ public class GameManager : Singleton<GameManager>
         List<EnemyStateMachine> enemiesToSpawn = EnemyCreator.Instance.waves[waveData];
         _ = SpawnEnemies(waveData, enemiesToSpawn);
     }
-
 }

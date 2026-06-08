@@ -15,6 +15,7 @@ namespace GameSystem.Effects
 
 
         private CancellationTokenSource ctsEffect;
+        private bool running = false;
 
 
         private void OnDestroy()
@@ -44,24 +45,25 @@ namespace GameSystem.Effects
             {
                 if (enter)
                 {
+                    running = true;
                     await spriteRenderer.LerpAlpha(0.5f, fadeDuration, ctsEffect.Token);
+                    running = false;
                 }
                 else
                 {
+                    running = true;
                     await spriteRenderer.LerpAlpha(1f, fadeDuration, ctsEffect.Token);
+                    running = false;
                 }
             }
             catch (OperationCanceledException)
             {
                 Debug.Log($"fadeCanceled");
             }
-            catch (Exception e)
-            {
-                Debug.LogError($"Error: {e}");
-            }
             finally
             {
-                Extensions.ClearCts(ref ctsEffect);
+                if (!running)
+                    Extensions.ClearCts(ref ctsEffect);
             }
         }
     }

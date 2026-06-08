@@ -1,4 +1,5 @@
 using System;
+using RewardSystem;
 using UnityEngine;
 
 
@@ -91,6 +92,7 @@ namespace Controller.Player
                 lvl++;
                 experience = 0;
                 OnAddLvl?.Invoke();
+                RewardPopup.Instance.Open(this);
             }
             OnAddExperience?.Invoke();
         }
