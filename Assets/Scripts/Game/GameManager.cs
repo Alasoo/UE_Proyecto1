@@ -77,6 +77,13 @@ public class GameManager : Singleton<GameManager>
         }
     }
 
+    public float GetDifficultyMultiplier()
+    {
+        // Empieza en 1x. 
+        // Cada 60 segundos (1 minuto) aumenta un 20% (0.2f).
+        // Puedes jugar con el 60f y el 0.2f para hacerlo más o menos hardcore.
+        return 1f + (gameTime / 60f) * 0.2f;
+    }
 
     private void Update()
     {

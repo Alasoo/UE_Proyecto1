@@ -21,7 +21,7 @@ MonoBehaviour:
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
-  lifeStealPercentToAdd: 10
+  lifeStealPercentToAdd: 3
   references:
     version: 2
     RefIds: []

@@ -21,7 +21,7 @@ MonoBehaviour:
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
-  damageToAdd: 30
+  damageToAdd: 20
   references:
     version: 2
     RefIds: []

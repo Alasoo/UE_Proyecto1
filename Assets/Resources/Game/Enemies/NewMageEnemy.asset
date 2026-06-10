@@ -22,7 +22,7 @@ MonoBehaviour:
   rangeAttack: 5
   rangeVision: 5
   patrolRadius: 3
-  attackCooldown: 2
+  attackCooldown: 1
   enemyPrefab: {fileID: 5159183187852316855, guid: 6c83641baf156f7488c6f7954037e81b, type: 3}
   manaMax: 250
   bulletScriptable: {fileID: 11400000, guid: 9193b09f68aed904fb0eb5d107c128ae, type: 2}

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: NewArcherEnemy
   m_EditorClassIdentifier: Assembly-CSharp::EnemySystem.ArcherEnemyScriptable
   sprite: {fileID: 21300000, guid: 3e5ddf8059c9a504e928613e5762caf0, type: 3}
-  hpMax: 20
+  hpMax: 40
   physicalArmor: 20
   magicalArmor: 20
   physicalDamage: 200
