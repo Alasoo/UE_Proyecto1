@@ -1,0 +1,19 @@
+fileFormatVersion: 2
+guid: e6345628fc486d846951be9462179af6
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - <agent>k__BackingField: {instanceID: 0}
+  - <body>k__BackingField: {instanceID: 0}
+  - <spriteRenderer>k__BackingField: {instanceID: 0}
+  - <spriteSkin>k__BackingField: {instanceID: 0}
+  - <animator>k__BackingField: {instanceID: 0}
+  - <rangeVision>k__BackingField: {instanceID: 0}
+  - <health>k__BackingField: {instanceID: 0}
+  - <attackController>k__BackingField: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

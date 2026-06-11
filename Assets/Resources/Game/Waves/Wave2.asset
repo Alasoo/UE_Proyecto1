@@ -14,16 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyScriptable
   waveData:
   - enemyScriptable: {fileID: 11400000, guid: 98ecab34e1c1f9a4d963ea4a00795a1f, type: 2}
-    minEnemies: 5
-    maxEnemies: 10
+    minEnemies: 4
+    maxEnemies: 8
     secondToSpawn: 5
   - enemyScriptable: {fileID: 11400000, guid: b550d187efa8949a6850c6aea77cdfa3, type: 2}
-    minEnemies: 4
-    maxEnemies: 10
+    minEnemies: 3
+    maxEnemies: 6
     secondToSpawn: 30
   - enemyScriptable: {fileID: 11400000, guid: 98ecab34e1c1f9a4d963ea4a00795a1f, type: 2}
-    minEnemies: 8
-    maxEnemies: 16
+    minEnemies: 5
+    maxEnemies: 10
     secondToSpawn: 60
   - enemyScriptable: {fileID: 11400000, guid: 44681454292d4c8438ed8d6e52d6008f, type: 2}
     minEnemies: 1

@@ -122,7 +122,18 @@ namespace BulletSystem
             if (hasHit || IsReleased) return;
 
             hasHit = true;
-            PlayerStateMachine.Instance.playerStats.TakeDamage(physicalDamage: bulletScriptable.physicalDamage, magicalDamage: bulletScriptable.magicDamage);
+            // --- NUEVO SISTEMA DE DIFICULTAD ---
+            // 1. Pedimos el multiplicador al GameManager
+            float difficulty = GameManager.Instance.GetDifficultyMultiplier();
+
+            // 2. Escalamos el daño físico y mágico por separado
+            int scaledPhysical = Mathf.RoundToInt(bulletScriptable.physicalDamage * difficulty);
+            int scaledMagical = Mathf.RoundToInt(bulletScriptable.magicDamage * difficulty);
+
+            // 3. Aplicamos el daño inflado al jugador
+            PlayerStateMachine.Instance.playerStats.TakeDamage(physicalDamage: scaledPhysical, magicalDamage: scaledMagical);
+            // -----------------------------------
+           // PlayerStateMachine.Instance.playerStats.TakeDamage(physicalDamage: bulletScriptable.physicalDamage, magicalDamage: bulletScriptable.magicDamage);
             BulletPool.Instance.Return(this);
         }
     }

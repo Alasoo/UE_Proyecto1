@@ -12,15 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92ff1f2572da716459483ccf3a83c789, type: 3}
   m_Name: NewMeleeEnemy
   m_EditorClassIdentifier: Assembly-CSharp::EnemySystem.MeleeEnemyScriptable
-  sprite: {fileID: 21300000, guid: e03743618c0cbe041a20367598eedda4, type: 3}
-  hpMax: 0
-  physicalArmor: 0
+  sprite: {fileID: 21300000, guid: 6ee72ed8cd1d47944b0bed81d40a2612, type: 3}
+  hpMax: 80
+  physicalArmor: 50
   magicalArmor: 0
   physicalDamage: 50
   magicalDamage: 0
-  speedMov: 5
-  rangeAttack: 1
-  rangeVision: 5
+  speedMov: 4
+  rangeAttack: 2
+  rangeVision: 1.5
   patrolRadius: 3
-  attackCooldown: 0
+  attackCooldown: 1
+  enemyPrefab: {fileID: 6937825085811445743, guid: 2e592a6f3ee44fd438df46204a3aa42d, type: 3}
   energyMax: 0

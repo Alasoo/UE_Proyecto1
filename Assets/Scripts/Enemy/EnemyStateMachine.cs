@@ -42,8 +42,16 @@ namespace Controller.Enemy
 
             rangeVision.OnPlayerEnter += PlayerOnRange;
 
+            // --- NUEVO SISTEMA DE ESCALADO ---
+            // Pedimos el multiplicador actual
+            float difficulty = GameManager.Instance.GetDifficultyMultiplier();
+
+            // Multiplicamos la vida base y lo redondeamos a un número entero
+            int scaledHp = Mathf.RoundToInt(enemyScriptable.hpMax * difficulty);
+
+            // Le pasamos la vida escalada en lugar de la base
+            health.Init(scaledHp, spriteRenderer.material);
             //gameObject.SetActive(true);
-            health.Init(enemyScriptable.hpMax, spriteRenderer.material);
         }
 
         protected override void OnDestroy()
