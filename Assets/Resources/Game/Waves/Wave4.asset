@@ -10,26 +10,26 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 44c9c9ec496bb994fbf52e4eb00b8706, type: 3}
-  m_Name: Wave3
+  m_Name: Wave4
   m_EditorClassIdentifier: Assembly-CSharp::EnemyScriptable
   waveData:
   - enemyScriptable: {fileID: 11400000, guid: b550d187efa8949a6850c6aea77cdfa3, type: 2}
-    minEnemies: 2
-    maxEnemies: 4
+    minEnemies: 1
+    maxEnemies: 3
     secondToSpawn: 10
   - enemyScriptable: {fileID: 11400000, guid: 1ead71254ada6564bb5383c500a77c52, type: 2}
     minEnemies: 2
     maxEnemies: 3
-    secondToSpawn: 30
-  - enemyScriptable: {fileID: 11400000, guid: b550d187efa8949a6850c6aea77cdfa3, type: 2}
-    minEnemies: 3
-    maxEnemies: 6
-    secondToSpawn: 40
+    secondToSpawn: 20
   - enemyScriptable: {fileID: 11400000, guid: 98ecab34e1c1f9a4d963ea4a00795a1f, type: 2}
     minEnemies: 5
     maxEnemies: 10
-    secondToSpawn: 80
+    secondToSpawn: 60
+  - enemyScriptable: {fileID: 11400000, guid: 372f50dda89f3e348b63ca002393ae69, type: 2}
+    minEnemies: 1
+    maxEnemies: 1
+    secondToSpawn: 110
   - enemyScriptable: {fileID: 11400000, guid: 44681454292d4c8438ed8d6e52d6008f, type: 2}
     minEnemies: 1
     maxEnemies: 2
-    secondToSpawn: 110
+    secondToSpawn: 150

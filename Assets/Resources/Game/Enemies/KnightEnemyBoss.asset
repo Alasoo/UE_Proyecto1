@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 92ff1f2572da716459483ccf3a83c789, type: 3}
-  m_Name: NewMeleeEnemy
+  m_Name: KnightEnemyBoss
   m_EditorClassIdentifier: Assembly-CSharp::EnemySystem.MeleeEnemyScriptable
-  sprite: {fileID: 21300000, guid: 6ee72ed8cd1d47944b0bed81d40a2612, type: 3}
+  sprite: {fileID: 21300000, guid: 60ef5c1b7c6a90b42824ac32eebe70af, type: 3}
   hpMax: 80
   physicalArmor: 50
   magicalArmor: 0
@@ -23,5 +23,5 @@ MonoBehaviour:
   rangeVision: 1.5
   patrolRadius: 3
   attackCooldown: 0.5
-  enemyPrefab: {fileID: 6937825085811445743, guid: 2e592a6f3ee44fd438df46204a3aa42d, type: 3}
+  enemyPrefab: {fileID: 6937825085811445743, guid: 31e30270a7e1f8f4b958454389d04c18, type: 3}
   energyMax: 0

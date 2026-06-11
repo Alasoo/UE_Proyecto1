@@ -2,7 +2,6 @@ using System.Collections;
 using UnityEngine;
 using Controller.Player;
 
-
 namespace Controller.Enemy
 {
     public class EnemyFollowPlayerState : EnemyBaseState
@@ -13,6 +12,10 @@ namespace Controller.Enemy
 
         public override void Tick(float deltaTime)
         {
+            // PARCHE DE SEGURIDAD: 
+            // Si el enemigo está "reciclado" (apagado o fuera del mapa), no intentamos moverlo.
+            if (!stateMachine.agent.isActiveAndEnabled || !stateMachine.agent.isOnNavMesh) return;
+
             stateMachine.agent.SetDestination(PlayerStateMachine.Instance.transform.position);
         }
 
@@ -29,9 +32,10 @@ namespace Controller.Enemy
 
         public override void Exit()
         {
-            if (!stateMachine.agent.enabled) return;
+            // Aplicamos el mismo freno de seguridad aquí por si acaso se apaga justo al cambiar de estado
+            if (!stateMachine.agent.isActiveAndEnabled || !stateMachine.agent.isOnNavMesh) return;
+
             stateMachine.agent.ResetPath();
         }
-
     }
 }

@@ -17,6 +17,10 @@ MonoBehaviour:
     minEnemies: 4
     maxEnemies: 8
     secondToSpawn: 5
+  - enemyScriptable: {fileID: 11400000, guid: 1ead71254ada6564bb5383c500a77c52, type: 2}
+    minEnemies: 1
+    maxEnemies: 2
+    secondToSpawn: 5
   - enemyScriptable: {fileID: 11400000, guid: b550d187efa8949a6850c6aea77cdfa3, type: 2}
     minEnemies: 3
     maxEnemies: 6
@@ -25,7 +29,7 @@ MonoBehaviour:
     minEnemies: 5
     maxEnemies: 10
     secondToSpawn: 60
-  - enemyScriptable: {fileID: 11400000, guid: 44681454292d4c8438ed8d6e52d6008f, type: 2}
+  - enemyScriptable: {fileID: 11400000, guid: 372f50dda89f3e348b63ca002393ae69, type: 2}
     minEnemies: 1
     maxEnemies: 2
     secondToSpawn: 100
