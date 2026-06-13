@@ -185,6 +185,10 @@ MonoBehaviour:
     m_Localized: Segur que vols sortir?
     m_Metadata:
       m_Items: []
+  - m_Id: 38277134283923456
+    m_Localized: stun
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:

@@ -37,7 +37,13 @@ namespace Controller.Player
         public event Action OnDie;
 
         private bool isDie = false;
+        public float stunTime { get; private set; } = 0f;
 
+
+        public void AddStunTime(float amount)
+        {
+            stunTime += amount;
+        }
 
 
         public void AddProjectiles(int amount)

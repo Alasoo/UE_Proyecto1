@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using AttackSystem;
@@ -28,7 +29,7 @@ namespace Controller.Enemy
 
         public EnemyScriptable enemyScriptable { get; private set; }
 
-
+        public event Action<float> OnStun;
 
 
 
@@ -46,7 +47,7 @@ namespace Controller.Enemy
             // Pedimos el multiplicador actual
             float difficulty = GameManager.Instance.GetDifficultyMultiplier();
 
-            // Multiplicamos la vida base y lo redondeamos a un número entero
+            // Multiplicamos la vida base y lo redondeamos a un nï¿½mero entero
             int scaledHp = Mathf.RoundToInt(enemyScriptable.hpMax * difficulty);
 
             // Le pasamos la vida escalada en lugar de la base
@@ -72,6 +73,10 @@ namespace Controller.Enemy
             Gizmos.DrawWireSphere(transform.position, enemyScriptable.rangeAttack);
         }
 
+        public void Stuned(float stunedTime)
+        {
+            OnStun?.Invoke(stunedTime);
+        }
 
 
     }

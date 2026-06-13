@@ -179,6 +179,10 @@ MonoBehaviour:
     m_Key: ConfirmationExit
     m_Metadata:
       m_Items: []
+  - m_Id: 38277134283923456
+    m_Key: stun
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

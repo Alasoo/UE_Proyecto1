@@ -30,8 +30,9 @@ namespace Controller.Enemy
         {
             ctsAttack?.Cancel();
             ctsAttack = new();
-            _ = Attack();
+            _ = Attack(ctsAttack.Token);
             stateMachine.health.OnDie += OnDie;
+            stateMachine.OnStun += OnStun;
         }
 
         public override void Tick(float deltaTime)
@@ -61,6 +62,7 @@ namespace Controller.Enemy
         {
             Extensions.ClearCts(ref ctsAttack);
             stateMachine.health.OnDie -= OnDie;
+            stateMachine.OnStun -= OnStun;
         }
 
         private void OnDie(Health health)
@@ -68,16 +70,36 @@ namespace Controller.Enemy
             Extensions.ClearCts(ref ctsAttack);
         }
 
+        private void OnStun(float stunTime)
+        {
+            _ = Stun(stunTime);
+        }
+
+        private async UniTask Stun(float time)
+        {
+            if (time <= 0.001f) return;
+            ctsAttack?.Cancel();
+            ctsAttack = new();
+            try
+            {
+                await UniTask.WaitForSeconds(time, cancellationToken: ctsAttack.Token);
+                _ = Attack(ctsAttack.Token);
+            }
+            catch (OperationCanceledException)
+            {
+                //Debug.LogError($"Cancelado patrolling!!!");
+            }
+        }
 
 
-        private async UniTask Attack()
+        private async UniTask Attack(CancellationToken token)
         {
             try
             {
-                while (true)
+                while (!token.IsCancellationRequested)
                 {
-                    await UniTask.WaitForSeconds(stateMachine.enemyScriptable.attackCooldown, cancellationToken: ctsAttack.Token);    //esperando en el punto de 2 a 5 segs
-                    ctsAttack.Token.ThrowIfCancellationRequested();
+                    await UniTask.WaitForSeconds(stateMachine.enemyScriptable.attackCooldown, cancellationToken: token);    //esperando en el punto de 2 a 5 segs
+                    token.ThrowIfCancellationRequested();
                     Vector3 directionToPlayer = (PlayerStateMachine.Instance.transform.position - stateMachine.transform.position).normalized;
                     Vector3 spawnPosition = stateMachine.transform.position + (directionToPlayer * 0.5f);
 
@@ -92,8 +114,6 @@ namespace Controller.Enemy
                         stateMachine.SwitchState(new EnemyFollowPlayerState(stateMachine));
                         return;
                     }
-                    //var buble = stateMachine.enemyScriptable.TakeBulletScriptable(); //.TakeBulletPrefab();
-                    //BulletPool.Instance.Get(stateMachine.enemyScriptable.bulletData.bullet, direction, position);
                 }
             }
             catch (OperationCanceledException)
